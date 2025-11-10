@@ -720,7 +720,8 @@
 
 /* Installation Steps */
 .installation-steps {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--scwp-space-6);
     margin-bottom: var(--scwp-space-8);
 }
@@ -781,10 +782,15 @@
 
 /* Component Demo Grid */
 .component-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--scwp-space-6);
     margin-bottom: var(--scwp-space-8);
+}
+
+.component-grid > * {
+    flex: 1 1 300px;
+    min-width: 300px;
 }
 
 .component-demo {
@@ -824,10 +830,15 @@
 
 /* Utility Showcase */
 .utility-showcase {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--scwp-space-4);
     margin-bottom: var(--scwp-space-6);
+}
+
+.utility-showcase > * {
+    flex: 1 1 250px;
+    min-width: 250px;
 }
 
 .utility-example {
@@ -849,10 +860,15 @@
 
 /* Features Grid */
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--scwp-space-6);
     margin-bottom: var(--scwp-space-8);
+}
+
+.features-grid > * {
+    flex: 1 1 250px;
+    min-width: 250px;
 }
 
 .feature-card {
@@ -896,7 +912,11 @@
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     .scwp-dashboard__cards {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+    
+    .scwp-dashboard__cards > * {
+        min-width: auto;
     }
     
     .scwp-nav-tabs {
@@ -931,11 +951,16 @@
     }
 
     .component-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+    
+    .component-grid > * {
+        min-width: auto;
     }
 
     .features-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: var(--scwp-space-4);
     }
 }/**
  * SCWP Admin UI Design System

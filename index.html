@@ -1,0 +1,2621 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCWP Admin UI - Design System Demo</title>
+    <link rel="stylesheet" href="css/scwp-admin-ui.css">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    <style>
+        /* Demo Page Specific Styles - Updated 2025-11-07 10:31 */
+        * {
+            box-sizing: border-box;
+        }
+
+
+        :root {
+            scroll-behavior: smooth;
+            font-size: 62.5%; /* 10px base for easier rem calculations */
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--scwp-wp-background);
+            font-family: var(--scwp-font-family);
+            line-height: 1.6;
+        }
+
+          p {
+                font-size: 1rem;
+            }
+
+        /* Header Navigation */
+        .demo-header {
+            background: #000000;
+            color: white;
+            padding: var(--scwp-space-4) 0; /* Already using CSS var, will be auto-scaled */
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            box-shadow: var(--scwp-shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+
+        .demo-header-content {
+            max-width: 100vw;
+            margin: 0 auto;
+            padding: 0 var(--scwp-space-6);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .demo-logo {
+            font-size: var(--scwp-text-base);
+            font-weight: var(--scwp-font-bold);
+            display: flex;
+            align-items: center;
+            gap: var(--scwp-space-2);
+            transition: font-size 0.3s ease;
+        }
+
+        .demo-header.scrolled .demo-logo {
+            font-size: var(--scwp-text-lg);
+        }
+
+        /* Desktop Navigation */
+        .demo-nav {
+            display: flex;
+            gap: var(--scwp-space-4);
+            transition: all 0.3s ease;
+        }
+
+        .demo-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: var(--scwp-font-medium);
+            /* font-size: var(--scwp-text-sm) !important; */
+            font-size: 0.8rem !important;
+            transition: all 0.2s ease;
+            padding: var(--scwp-space-1) var(--scwp-space-2);
+            border-radius: var(--scwp-border-radius);
+        }
+
+        .demo-nav a:hover {
+            color: #000000;
+            background: #DAA520;
+        }
+
+        /* Mobile Burger Menu */
+        .demo-burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: var(--scwp-space-2);
+            background: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .demo-burger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Burger animation */
+        .demo-burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .demo-burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .demo-burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Mobile Menu */
+        .demo-nav-mobile {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            z-index: 9999;
+            transition: left 0.3s ease;
+            padding-top: 80px;
+        }
+
+        .demo-nav-mobile.active {
+            left: 0;
+        }
+
+        .demo-nav-mobile .demo-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: var(--scwp-space-4);
+            height: 100%;
+            justify-content: flex-start;
+        }
+
+        .demo-nav-mobile .demo-nav a {
+            padding: var(--scwp-space-4) var(--scwp-space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0;
+            font-size: var(--scwp-text-lg);
+            text-align: center;
+            color: white;
+            text-decoration: none;
+        }
+        .demo-nav-mobile .demo-nav a:hover {
+            background: #DAA520;
+            color: #000000;
+        }
+
+        .demo-nav-mobile .demo-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Show burger menu on mobile */
+        @media (max-width: 600px) {
+            .demo-nav {
+                display: none;
+            }
+            .demo-nav-mobile .demo-nav {
+                display: flex !important;
+            }
+
+            .demo-burger {
+                display: flex;
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .demo-header-content {
+                padding: 0 var(--scwp-space-3);
+            }
+
+            .demo-hero-content {
+                padding: 0 var(--scwp-space-3);
+            }
+
+            .demo-section {
+                margin-bottom: var(--scwp-space-6);
+            }
+
+            .demo-section h2 {
+                font-size: var(--scwp-text-xl);
+                margin-bottom: var(--scwp-space-4);
+            }
+
+            .demo-section h3 {
+                font-size: var(--scwp-text-lg);
+                margin-bottom: var(--scwp-space-3);
+            }
+
+            .component-demo-content {
+                padding: var(--scwp-space-4);
+                min-height: 150px;
+            }
+
+            .demo-hero {
+                padding: var(--scwp-space-6) 0;
+            }
+        }
+
+        /* Desktop never shows burger menu */
+
+
+        /* Hero Section */
+        .demo-hero {
+            background: #000000;
+            color: white;
+            padding: var(--scwp-space-8) 0;
+            text-align: center;
+        }
+
+        .demo-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--scwp-space-6);
+        }
+
+        .demo-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: var(--scwp-font-bold);
+            margin-bottom: var(--scwp-space-4);
+            line-height: 1.2;
+            color: #DAA520;
+        }
+
+        .demo-hero p {
+            font-size: var(--scwp-text-lg);
+            margin-bottom: var(--scwp-space-6);
+            opacity: 0.9;
+        }
+
+        .demo-hero-actions {
+            display: flex;
+            gap: var(--scwp-space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .demo-hero .scwp-btn {
+            padding: var(--scwp-space-3) var(--scwp-space-6);
+            font-size: var(--scwp-text-lg);
+        }
+
+        /* Main Content */
+        .demo-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--scwp-space-8) var(--scwp-space-6);
+        }
+
+        @media (max-width: 600px) {
+            .demo-main {
+                padding: var(--scwp-space-4) var(--scwp-space-3);
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+        }
+
+        .demo-section {
+            margin-bottom: var(--scwp-space-8);
+            scroll-margin-top: 100px;
+        }
+
+        .demo-section h2 {
+            font-size: var(--scwp-text-2xl);
+            font-weight: var(--scwp-font-bold);
+            margin-bottom: var(--scwp-space-6);
+            color: var(--scwp-wp-text);
+            border-bottom: 2px solid var(--scwp-primary);
+            padding-bottom: var(--scwp-space-2);
+        }
+
+        .demo-section h3 {
+            font-size: var(--scwp-text-lg);
+            font-weight: var(--scwp-font-semibold);
+            margin-bottom: var(--scwp-space-4);
+            color: var(--scwp-wp-text);
+        }
+
+        /* Installation Steps */
+        .installation-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--scwp-space-6);
+            margin-bottom: var(--scwp-space-8);
+        }
+
+        .installation-step {
+            background: var(--scwp-white);
+            border: 1px solid var(--scwp-wp-border);
+            border-radius: var(--scwp-border-radius-lg);
+            padding: var(--scwp-space-6);
+            box-shadow: var(--scwp-shadow-sm);
+        }
+
+        .installation-step h4 {
+            color: var(--scwp-primary);
+            font-weight: var(--scwp-font-semibold);
+            margin-bottom: var(--scwp-space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--scwp-space-2);
+        }
+
+        .step-number {
+            background: var(--scwp-primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--scwp-text-sm);
+            font-weight: var(--scwp-font-bold);
+        }
+
+        /* Enhanced Code Blocks with Prism.js */
+        .demo-code-container {
+            position: relative;
+            margin: var(--scwp-space-4) 0;
+            border-radius: var(--scwp-border-radius-lg);
+            overflow: visible;
+            box-shadow: var(--scwp-shadow-lg);
+            border: 1px solid #2d3748;
+            max-width: 100%;
+        }
+
+        .demo-code-container pre[class*="language-"] {
+            margin: 0 !important;
+            overflow-x: auto;
+            max-width: 100%;
+            border-radius: 0 0 var(--scwp-border-radius-lg) var(--scwp-border-radius-lg);
+        }
+
+        .demo-code-container code[class*="language-"] {
+            white-space: pre;
+            word-wrap: normal;
+            overflow-wrap: normal;
+        }
+
+        .demo-code-header {
+            background: linear-gradient(90deg, #1a202c 0%, #2d3748 100%);
+            padding: var(--scwp-space-3) var(--scwp-space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #4a5568;
+            width: 100%;
+            overflow: visible;
+            flex-shrink: 0;
+            border-radius: var(--scwp-border-radius-lg) var(--scwp-border-radius-lg) 0 0;
+        }
+
+        .demo-code-title {
+            color: #e2e8f0;
+            font-size: var(--scwp-text-sm);
+            font-weight: var(--scwp-font-medium);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--scwp-space-2);
+        }
+
+        .demo-code-lang {
+            background: #4a5568;
+            color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: var(--scwp-border-radius-sm);
+            font-size: var(--scwp-text-xs);
+            text-transform: uppercase;
+            font-weight: var(--scwp-font-semibold);
+        }
+
+        .demo-code-copy {
+            background: transparent;
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: var(--scwp-border-radius-sm);
+            font-size: var(--scwp-text-xs);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .demo-code-copy:hover {
+            background: #4a5568;
+            border-color: #718096;
+        }
+
+        .demo-code {
+            margin: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+        }
+
+        /* Prism.js customizations for VSCode-like appearance */
+        pre[class*="language-"] {
+            margin: 0;
+            padding: var(--scwp-space-3) var(--scwp-space-3) var(--scwp-space-3) var(--scwp-space-5);
+            background: #1e1e1e !important;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        code[class*="language-"] {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 11px;
+            color: #d4d4d4;
+            background: none;
+            text-shadow: none;
+        }
+
+        /* Line numbers */
+        .line-numbers .line-numbers-rows {
+            border-right: 1px solid #3e3e42;
+            background: #252526;
+            padding-right: 10px;
+        }
+
+        .line-numbers-rows > span:before {
+            color: #858585;
+            font-size: 13px;
+        }
+
+        /* VSCode-like syntax highlighting */
+        .token.comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .token.keyword {
+            color: #569cd6;
+            font-weight: normal;
+        }
+
+        .token.string {
+            color: #ce9178;
+        }
+
+        .token.number {
+            color: #b5cea8;
+        }
+
+        .token.function {
+            color: #dcdcaa;
+        }
+
+        .token.class-name {
+            color: #4ec9b0;
+        }
+
+        .token.variable {
+            color: #9cdcfe;
+        }
+
+        .token.property {
+            color: #9cdcfe;
+        }
+
+        .token.operator {
+            color: #d4d4d4;
+        }
+
+        .token.punctuation {
+            color: #d4d4d4;
+        }
+
+        .token.tag {
+            color: #569cd6;
+        }
+
+        .token.attr-name {
+            color: #92c5f7;
+        }
+
+        .token.attr-value {
+            color: #ce9178;
+        }
+
+        .token.selector {
+            color: #d7ba7d;
+        }
+
+        .token.rule {
+            color: #569cd6;
+        }
+
+        /* PHP specific tokens */
+        .token.php {
+            color: #d4d4d4;
+        }
+
+        .token.delimiter {
+            color: #569cd6;
+        }
+
+        /* Copy button success state */
+        .demo-code-copy.copied {
+            background: #22543d;
+            border-color: #38a169;
+            color: #68d391;
+        }
+
+        /* Enhanced Code Viewer */
+        .scwp-code-viewer {
+            border: 1px solid var(--scwp-wp-border);
+            border-radius: var(--scwp-border-radius-lg);
+            overflow: hidden;
+            background: var(--scwp-white);
+            box-shadow: var(--scwp-shadow-sm);
+            margin-bottom: var(--scwp-space-6);
+        }
+
+        .scwp-code-viewer-header {
+            background: var(--scwp-gray-50);
+            padding: var(--scwp-space-3);
+            border-bottom: 1px solid var(--scwp-wp-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scwp-code-viewer-title {
+            font-size: var(--scwp-text-sm);
+            font-weight: var(--scwp-font-semibold);
+            color: var(--scwp-wp-text);
+            margin: 0;
+        }
+
+        .scwp-code-viewer-controls {
+            display: flex;
+            gap: var(--scwp-space-2);
+        }
+
+        .scwp-code-viewer-btn {
+            padding: var(--scwp-space-1) var(--scwp-space-2);
+            font-size: var(--scwp-text-xs);
+            border: 1px solid var(--scwp-wp-border);
+            background: var(--scwp-white);
+            border-radius: var(--scwp-border-radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .scwp-code-viewer-btn:hover {
+            background: var(--scwp-gray-100);
+        }
+
+        .scwp-code-viewer-content {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Fallback styling if CodeMirror fails to load */
+        .scwp-code-viewer-content textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: var(--scwp-space-4);
+            border: none;
+            background: var(--scwp-white);
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            resize: none;
+            outline: none;
+        }
+
+        /* CodeMirror customizations */
+        .scwp-code-viewer .CodeMirror {
+            height: auto !important;
+            min-height: 200px !important;
+            max-height: 400px !important;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+            border: none !important;
+            background: var(--scwp-white) !important;
+        }
+
+        .scwp-code-viewer .CodeMirror-scroll {
+            padding: var(--scwp-space-4) !important;
+            margin: 0 !important;
+            overflow: auto !important;
+        }
+
+        .scwp-code-viewer .CodeMirror-gutters {
+            background: var(--scwp-gray-50);
+            border-right: 1px solid var(--scwp-wp-border);
+        }
+
+        .scwp-code-viewer .CodeMirror-linenumber {
+            color: var(--scwp-gray-500);
+            font-size: 12px;
+        }
+
+        /* Dark theme support */
+        .scwp-code-viewer.dark-theme .CodeMirror {
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        .scwp-code-viewer.dark-theme .CodeMirror-gutters {
+            background: #252526;
+            border-right-color: #3e3e42;
+        }
+
+        .scwp-code-viewer.dark-theme .CodeMirror-linenumber {
+            color: #858585;
+        }
+
+        /* Component Layout - Full Width with Flexbox */
+        .component-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--scwp-space-6);
+            margin-bottom: var(--scwp-space-8);
+        }
+
+        @media (max-width: 600px) {
+            .component-grid {
+                gap: var(--scwp-space-4);
+            }
+
+            .utility-showcase {
+                flex-direction: column;
+                gap: var(--scwp-space-3);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--scwp-space-4);
+            }
+        }
+
+        .component-demo {
+            background: var(--scwp-white);
+            border: 1px solid var(--scwp-wp-border);
+            border-radius: var(--scwp-border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--scwp-shadow-sm);
+        }
+
+        .component-demo-header {
+            background: var(--scwp-gray-50);
+            padding: var(--scwp-space-4);
+            border-bottom: 1px solid var(--scwp-wp-border);
+        }
+
+        .component-demo-header h4 {
+            margin: 0;
+            font-size: var(--scwp-text-base);
+            font-weight: var(--scwp-font-semibold);
+            color: var(--scwp-wp-text);
+        }
+
+        .component-demo-content {
+            padding: var(--scwp-space-6);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--scwp-space-4);
+        }
+        
+        /* Ensure button rows display properly */
+        .component-demo-content .scwp-flex {
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .component-demo-content .scwp-btn {
+            min-width: 100px;
+            white-space: nowrap;
+        }
+        
+        /* Emoji library code blocks - smaller font */
+        .utility-example .demo-code-container pre[class*="language-"] {
+            font-size: 8px !important;
+            line-height: 1.3 !important;
+            padding: var(--scwp-space-2) !important;
+        }
+        
+        .utility-example .demo-code-container code[class*="language-"] {
+            font-size: 8px !important;
+        }
+        
+        /* Custom Alert Button */
+        .scwp-btn--alert {
+            background: #DAA520 !important;
+            color: #000000 !important;
+            border: 2px solid transparent !important;
+        }
+        
+        .scwp-btn--alert:hover {
+            background: #000000 !important;
+            color: #DAA520 !important;
+            border: 2px solid #DAA520 !important;
+        }
+
+        /* Interactive Examples */
+        .interactive-demo {
+            background: var(--scwp-white);
+            border: 1px solid var(--scwp-wp-border);
+            border-radius: var(--scwp-border-radius-lg);
+            padding: var(--scwp-space-6);
+            margin-bottom: var(--scwp-space-6);
+            box-shadow: var(--scwp-shadow-sm);
+        }
+
+        /* Utility Showcase */
+        .utility-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--scwp-space-4);
+            margin-bottom: var(--scwp-space-6);
+        }
+
+        .utility-showcase > * {
+            flex: 1 1 200px;
+            min-width: 200px;
+        }
+
+        .utility-example {
+            padding: var(--scwp-space-4);
+            border: 1px solid var(--scwp-wp-border);
+            border-radius: var(--scwp-border-radius);
+            background: var(--scwp-white);
+        }
+
+        .utility-example code {
+            display: block;
+            background: var(--scwp-gray-100);
+            padding: var(--scwp-space-2);
+            border-radius: var(--scwp-border-radius-sm);
+            font-size: var(--scwp-text-xs);
+            margin-top: var(--scwp-space-2);
+            color: var(--scwp-gray-700);
+        }
+
+        /* Features Layout - Default: 2 columns */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--scwp-space-4);
+            margin-bottom: var(--scwp-space-8);
+        }
+
+        .feature-card {
+            background: var(--scwp-white);
+            padding: var(--scwp-space-4);
+            border-radius: var(--scwp-border-radius-lg);
+            box-shadow: var(--scwp-shadow-sm);
+            border: 1px solid var(--scwp-wp-border);
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: var(--scwp-space-2);
+            display: block;
+            color: var(--scwp-primary);
+        }
+
+        .feature-card h3 {
+            color: var(--scwp-primary);
+            margin-bottom: var(--scwp-space-2);
+            font-size: var(--scwp-text-lg);
+        }
+        
+        .feature-card p {
+            font-size: var(--scwp-text-xs);
+            color: var(--scwp-gray-700);
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .demo-footer {
+            background: var(--scwp-gray-900);
+            color: var(--scwp-gray-300);
+            padding: var(--scwp-space-6) 0;
+            text-align: center;
+            margin-top: var(--scwp-space-8);
+        }
+
+        .demo-footer a {
+            color: var(--scwp-primary);
+            text-decoration: none;
+        }
+
+        .demo-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .demo-main {
+                padding: var(--scwp-space-6) var(--scwp-space-4);
+            }
+
+            .demo-header-content {
+                padding: 0 var(--scwp-space-4);
+            }
+        }
+
+        @media (max-width: 600px) {
+            /* Header responsive */
+            .demo-header-content {
+                padding: 0 var(--scwp-space-3);
+            }
+
+            .demo-logo {
+                font-size: var(--scwp-text-lg);
+            }
+
+            /* Hero responsive */
+            .demo-hero {
+                padding: var(--scwp-space-6) 0;
+            }
+
+            .demo-hero-content {
+                padding: 0 var(--scwp-space-3);
+            }
+
+            .demo-hero h1 {
+                font-size: 2rem;
+                margin-bottom: var(--scwp-space-3);
+            }
+
+            .demo-hero p {
+                font-size: var(--scwp-text-base);
+                margin-bottom: var(--scwp-space-4);
+            }
+
+            .demo-hero-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--scwp-space-3);
+            }
+
+            .demo-hero .scwp-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: var(--scwp-space-3) var(--scwp-space-4);
+                font-size: var(--scwp-text-base);
+            }
+
+            /* Main content responsive */
+            .demo-main {
+                padding: var(--scwp-space-6) var(--scwp-space-3);
+            }
+
+            .demo-section {
+                margin-bottom: var(--scwp-space-6);
+            }
+
+            .demo-section h2 {
+                font-size: var(--scwp-text-xl);
+                margin-bottom: var(--scwp-space-4);
+            }
+
+            /* Grids responsive */
+            .component-grid {
+                gap: var(--scwp-space-4);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--scwp-space-4);
+            }
+
+            .utility-showcase {
+                flex-direction: column;
+                gap: var(--scwp-space-3);
+            }
+            
+            .utility-showcase > * {
+                min-width: auto;
+            }
+
+            /* Installation steps responsive */
+            .installation-steps {
+                gap: var(--scwp-space-4);
+            }
+
+            .installation-step {
+                padding: var(--scwp-space-4);
+            }
+
+            /* Code blocks responsive */
+            .demo-code-container {
+                margin: var(--scwp-space-3) 0;
+                border-radius: var(--scwp-border-radius);
+                max-width: 100%;
+                overflow: visible;
+            }
+
+            .demo-code-header {
+                padding: var(--scwp-space-2) var(--scwp-space-3);
+                flex-wrap: wrap;
+                gap: var(--scwp-space-2);
+                width: 100%;
+                overflow: visible;
+            }
+
+            .demo-code-container pre[class*="language-"] {
+                overflow-x: auto !important;
+                max-width: 100% !important;
+                white-space: pre !important;
+                word-wrap: normal !important;
+                padding: var(--scwp-space-3) !important;
+                font-size: 10px !important;
+                line-height: 1.4 !important;
+                margin: 0 !important;
+                border-radius: 0 0 var(--scwp-border-radius) var(--scwp-border-radius);
+            }
+
+            .demo-code-container code[class*="language-"] {
+                white-space: pre !important;
+                word-wrap: normal !important;
+                overflow-wrap: normal !important;
+            }
+
+            .demo-code-title {
+                font-size: var(--scwp-text-xs);
+            }
+
+            /* Emoji Picker Grid */
+            .emoji-picker-container {
+                background: var(--scwp-white);
+                border: 1px solid var(--scwp-wp-border);
+                border-radius: var(--scwp-border-radius-lg);
+                padding: var(--scwp-space-4);
+                margin-bottom: var(--scwp-space-6);
+            }
+
+            .emoji-grid {
+                display: grid;
+                grid-template-columns: repeat(8, 1fr);
+                gap: var(--scwp-space-2);
+                margin-bottom: var(--scwp-space-4);
+            }
+
+            .emoji-btn {
+                background: var(--scwp-gray-50);
+                border: 1px solid var(--scwp-gray-200);
+                border-radius: var(--scwp-border-radius);
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                cursor: pointer;
+                transition: all var(--scwp-transition);
+                position: relative;
+            }
+
+            .emoji-btn:hover {
+                background: var(--scwp-primary);
+                border-color: var(--scwp-primary);
+                transform: translateY(-2px);
+                box-shadow: var(--scwp-shadow-md);
+            }
+
+            .emoji-btn:active {
+                transform: translateY(0);
+                box-shadow: var(--scwp-shadow);
+            }
+
+            .emoji-feedback {
+                text-align: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+                transform: translateY(10px);
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+            }
+
+            .emoji-picker-container .emoji-feedback.show {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+            
+            .emoji-picker-container .emoji-feedback:not(.show) {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+            }
+
+            .copy-success {
+                color: var(--scwp-success);
+                font-weight: var(--scwp-font-medium);
+                font-size: var(--scwp-text-sm);
+            }
+
+            @media (max-width: 600px) {
+                .emoji-grid {
+                    grid-template-columns: repeat(6, 1fr);
+                    gap: var(--scwp-space-1);
+                }
+                
+                .emoji-btn {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 20px;
+                }
+            }
+
+            .demo-code-copy {
+                font-size: var(--scwp-text-xs);
+                padding: 3px 6px;
+            }
+
+            pre[class*="language-"] {
+                padding: var(--scwp-space-2);
+                font-size: 10px;
+                line-height: 1.4;
+            }
+
+            /* Interactive demo responsive */
+            .interactive-demo {
+                padding: var(--scwp-space-4);
+            }
+
+            /* SCWP Code viewer responsive */
+            .scwp-code-viewer-header {
+                padding: var(--scwp-space-2);
+                flex-wrap: wrap;
+                gap: var(--scwp-space-2);
+            }
+
+            .scwp-code-viewer-controls {
+                gap: var(--scwp-space-1);
+            }
+
+            .scwp-code-viewer-btn {
+                font-size: var(--scwp-text-xs);
+                padding: var(--scwp-space-1);
+            }
+
+            .scwp-code-viewer .CodeMirror {
+                font-size: 12px;
+            }
+
+            /* Cards responsive */
+            .scwp-dashboard__cards {
+                flex-direction: column;
+                gap: var(--scwp-space-4);
+            }
+            
+            .scwp-dashboard__cards > * {
+                min-width: auto;
+            }
+
+            /* Form elements responsive */
+            .scwp-flex {
+                flex-wrap: wrap;
+            }
+
+            /* Footer responsive */
+            .demo-footer {
+                padding: var(--scwp-space-4) 0;
+            }
+
+            .demo-footer p {
+                font-size: var(--scwp-text-sm);
+                margin: var(--scwp-space-2) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            .demo-main {
+                padding: var(--scwp-space-4) var(--scwp-space-2);
+            }
+
+            .demo-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .demo-section h2 {
+                font-size: var(--scwp-text-lg);
+            }
+
+            .installation-step {
+                padding: var(--scwp-space-3);
+            }
+
+            .feature-card {
+                padding: var(--scwp-space-4);
+            }
+
+            .component-demo-content {
+                padding: var(--scwp-space-4);
+            }
+
+            .interactive-demo {
+                padding: var(--scwp-space-3);
+            }
+
+            pre[class*="language-"] {
+                font-size: 9px;
+                padding: var(--scwp-space-1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="demo-header" id="demo-header">
+        <div class="demo-header-content">
+            <div class="demo-logo">
+                SCWP Admin UI
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="demo-nav">
+                <a href="#installation">Installation</a>
+                <a href="#components">Components</a>
+                <a href="#utilities">Utilities</a>
+                <a href="#emojis">Emojis</a>
+                <a href="#examples">Examples</a>
+            </nav>
+
+            <!-- Mobile Burger Menu -->
+            <button class="demo-burger" id="demo-burger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Mobile Navigation -->
+            <div class="demo-nav-mobile" id="demo-nav-mobile">
+                <nav class="demo-nav">
+                    <a href="#installation" onclick="closeMobileMenu()">Installation</a>
+                    <a href="#components" onclick="closeMobileMenu()">Components</a>
+                    <a href="#utilities" onclick="closeMobileMenu()">Utilities</a>
+                    <a href="#emojis" onclick="closeMobileMenu()">Emojis</a>
+                    <a href="#examples" onclick="closeMobileMenu()">Examples</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="demo-hero">
+        <div class="demo-hero-content">
+            <h1>Modern WordPress Admin Design System</h1>
+            <p>
+                A comprehensive, accessible, and modern design system for WordPress admin plugins. 
+                Built with CSS custom properties, semantic HTML, and inspired by the best design systems.
+            </p>
+            <div class="demo-hero-actions">
+                <button class="scwp-btn scwp-btn--secondary" onclick="document.getElementById('installation').scrollIntoView({behavior: 'smooth'})">
+                    Get Started
+                </button>
+                <button class="scwp-btn scwp-btn--alert" onclick="document.getElementById('components').scrollIntoView({behavior: 'smooth'})">
+                    View Components
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="demo-main">
+        <!-- Features -->
+        <section class="demo-section">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>Modern Design</h3>
+                    <p>Clean, contemporary interface inspired by Material Design and Apple's Human Interface Guidelines</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>Customizable</h3>
+                    <p>Built with CSS custom properties for easy theming and customization</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>Responsive</h3>
+                    <p>Works perfectly on all screen sizes and devices</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>Accessible</h3>
+                    <p>Built with accessibility in mind, following WCAG guidelines</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>Performance</h3>
+                    <p>Lightweight and optimized for fast loading</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"></span>
+                    <h3>WordPress Native</h3>
+                    <p>Seamlessly integrates with WordPress admin interface</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation" class="demo-section">
+            <h2>📦 Installation</h2>
+            
+            <div class="installation-steps">
+                <div class="installation-step">
+                    <h4><span class="step-number">1</span>Download Files</h4>
+                    <p>Include the CSS files in your WordPress plugin or theme:</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">HTML</span>
+                                Basic Installation
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code line-numbers"><code class="language-html">&lt;link rel="stylesheet" href="path/to/scwp-admin-ui.css"&gt;</code></pre>
+                    </div>
+                    <p>Or use the modular approach:</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">HTML</span>
+                                Modular Installation
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code line-numbers"><code class="language-html">&lt;link rel="stylesheet" href="path/to/scwp-admin-ui-variables.css"&gt;
+&lt;link rel="stylesheet" href="path/to/scwp-admin-ui-components.css"&gt;
+&lt;link rel="stylesheet" href="path/to/scwp-admin-ui-utilities.css"&gt;</code></pre>
+                    </div>
+                </div>
+
+                <div class="installation-step">
+                    <h4><span class="step-number">2</span>WordPress Plugin Integration</h4>
+                    <p>Enqueue the styles in your plugin:</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">PHP</span>
+                                WordPress Enqueue
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code line-numbers"><code class="language-php">function enqueue_scwp_admin_ui() {
+    wp_enqueue_style(
+        'scwp-admin-ui',
+        plugin_dir_url(__FILE__) . 'assets/css/scwp-admin-ui.css',
+        array(),
+        '1.0.0'
+    );
+}
+add_action('admin_enqueue_scripts', 'enqueue_scwp_admin_ui');</code></pre>
+                    </div>
+                </div>
+
+                <div class="installation-step">
+                    <h4><span class="step-number">3</span>Add JavaScript (Optional)</h4>
+                    <p>Include the JavaScript for interactive components:</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">PHP</span>
+                                JavaScript Enqueue
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code line-numbers"><code class="language-php">function enqueue_scwp_admin_ui_js() {
+    wp_enqueue_script(
+        'scwp-admin-ui',
+        plugin_dir_url(__FILE__) . 'assets/js/scwp-admin-ui.js',
+        array(),
+        '1.0.0',
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'enqueue_scwp_admin_ui_js');</code></pre>
+                    </div>
+                </div>
+
+                <div class="installation-step">
+                    <h4><span class="step-number">4</span>Start Using</h4>
+                    <p>Wrap your admin pages with the base class and start using components:</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">HTML</span>
+                                Basic Usage
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code line-numbers"><code class="language-html">&lt;div class="scwp-ui"&gt;
+    &lt;div class="scwp-card scwp-card--primary"&gt;
+        &lt;div class="scwp-card__content"&gt;
+            Your content here
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components -->
+        <section id="components" class="demo-section">
+            <h2>🧩 Components</h2>
+            
+            <div class="component-grid">
+                <!-- Navigation Tabs -->
+                <div class="component-demo">
+                    <div class="component-demo-header">
+                        <h4>Navigation Tabs</h4>
+                    </div>
+                    <div class="component-demo-content">
+                        <nav class="scwp-nav-tabs">
+                            <a href="#" class="scwp-nav-tab scwp-nav-tab--active">Dashboard</a>
+                            <a href="#" class="scwp-nav-tab">Issues</a>
+                            <a href="#" class="scwp-nav-tab">Settings</a>
+                        </nav>
+                        
+                        <div class="demo-code-container">
+                            <div class="demo-code-header">
+                                <div class="demo-code-title">
+                                    <span class="demo-code-lang">HTML</span>
+                                    Navigation Tabs
+                                </div>
+                                <button class="demo-copy-btn" data-copy-target="nav-tabs-code">
+                                    <span class="copy-icon">📋</span>
+                                    Copy
+                                </button>
+                            </div>
+                            <pre class="language-html"><code id="nav-tabs-code">&lt;nav class="scwp-nav-tabs"&gt;
+    &lt;a href="#" class="scwp-nav-tab scwp-nav-tab--active"&gt;Dashboard&lt;/a&gt;
+    &lt;a href="#" class="scwp-nav-tab"&gt;Issues&lt;/a&gt;
+    &lt;a href="#" class="scwp-nav-tab"&gt;Settings&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="component-demo">
+                    <div class="component-demo-header">
+                        <h4>Buttons</h4>
+                    </div>
+                    <div class="component-demo-content">
+                        <div class="scwp-flex scwp-gap-3 scwp-flex-wrap">
+                            <button class="scwp-btn scwp-btn--primary">Primary</button>
+                            <button class="scwp-btn scwp-btn--secondary">Secondary</button>
+                            <button class="scwp-btn scwp-btn--success">Success</button>
+                            <button class="scwp-btn scwp-btn--danger">Danger</button>
+                            <button class="scwp-btn scwp-btn--alert">Alert</button>
+                        </div>
+                        <div class="scwp-flex scwp-gap-3 scwp-mt-4">
+                            <button class="scwp-btn scwp-btn--primary scwp-btn--small">Small</button>
+                            <button class="scwp-btn scwp-btn--primary">Normal</button>
+                            <button class="scwp-btn scwp-btn--primary scwp-btn--large">Large</button>
+                        </div>
+                        <div class="demo-code-container">
+                            <div class="demo-code-header">
+                                <div class="demo-code-title">
+                                    <span class="demo-code-lang">HTML</span>
+                                    Button Usage
+                                </div>
+                                <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                            </div>
+                            <pre class="demo-code"><code class="language-html">&lt;button class="scwp-btn scwp-btn--primary"&gt;Primary&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--success"&gt;Success&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--danger"&gt;Danger&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--alert"&gt;Alert&lt;/button&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;button class="scwp-btn scwp-btn--primary scwp-btn--small"&gt;Small&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--primary"&gt;Normal&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--primary scwp-btn--large"&gt;Large&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Elements -->
+                <div class="component-demo">
+                    <div class="component-demo-header">
+                        <h4>Form Elements</h4>
+                    </div>
+                    <div class="component-demo-content">
+                        <div class="scwp-form-group">
+                            <label class="scwp-label" for="demo-input">Input Label</label>
+                            <input type="text" id="demo-input" class="scwp-input" placeholder="Enter text">
+                        </div>
+                        
+                        <div class="scwp-form-group">
+                            <div class="scwp-flex scwp-items-center scwp-gap-3">
+                                <label class="scwp-toggle">
+                                    <input type="checkbox" class="scwp-toggle__input" checked>
+                                    <span class="scwp-toggle__slider"></span>
+                                </label>
+                                <span class="scwp-label">Toggle Setting</span>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-code-container">
+                            <div class="demo-code-header">
+                                <div class="demo-code-title">
+                                    <span class="demo-code-lang">HTML</span>
+                                    Form Elements Usage
+                                </div>
+                                <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                            </div>
+                            <pre class="demo-code"><code class="language-html">&lt;div class="scwp-form-group"&gt;
+    &lt;label class="scwp-label" for="my-input"&gt;Input Label&lt;/label&gt;
+    &lt;input type="text" id="my-input" class="scwp-input" placeholder="Enter text"&gt;
+&lt;/div&gt;
+
+&lt;div class="scwp-form-group"&gt;
+    &lt;div class="scwp-flex scwp-items-center scwp-gap-3"&gt;
+        &lt;label class="scwp-toggle"&gt;
+            &lt;input type="checkbox" class="scwp-toggle__input" checked&gt;
+            &lt;span class="scwp-toggle__slider"&gt;&lt;/span&gt;
+        &lt;/label&gt;
+        &lt;span class="scwp-label"&gt;Toggle Setting&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="component-demo">
+                    <div class="component-demo-header">
+                        <h4>Notifications</h4>
+                    </div>
+                    <div class="component-demo-content">
+                        <div class="scwp-notification scwp-notification--success scwp-mb-3">
+                            <strong>Success!</strong> Operation completed.
+                        </div>
+                        <div class="scwp-notification scwp-notification--warning scwp-mb-3">
+                            <strong>Warning!</strong> Check this out.
+                        </div>
+                        <div class="scwp-notification scwp-notification--danger">
+                            <strong>Error!</strong> Something went wrong.
+                        </div>
+                        
+                        <div class="demo-code-container">
+                            <div class="demo-code-header">
+                                <div class="demo-code-title">
+                                    <span class="demo-code-lang">HTML</span>
+                                    Notifications Usage
+                                </div>
+                                <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                            </div>
+                            <pre class="demo-code"><code class="language-html">&lt;!-- Success Notification --&gt;
+&lt;div class="scwp-notification scwp-notification--success"&gt;
+    &lt;strong&gt;Success!&lt;/strong&gt; Operation completed.
+&lt;/div&gt;
+
+&lt;!-- Warning Notification --&gt;
+&lt;div class="scwp-notification scwp-notification--warning"&gt;
+    &lt;strong&gt;Warning!&lt;/strong&gt; Check this out.
+&lt;/div&gt;
+
+&lt;!-- Error Notification --&gt;
+&lt;div class="scwp-notification scwp-notification--danger"&gt;
+    &lt;strong&gt;Error!&lt;/strong&gt; Something went wrong.
+&lt;/div&gt;
+
+&lt;!-- Info Notification --&gt;
+&lt;div class="scwp-notification scwp-notification--info"&gt;
+    &lt;strong&gt;Info:&lt;/strong&gt; Here's some information.
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="interactive-demo">
+                <h3>Dashboard Cards</h3>
+                
+                <!-- Card 1: Top Border -->
+                <h4>1. Top Border (Default)</h4>
+                <div class="scwp-dashboard">
+                    <div class="scwp-dashboard__cards">
+                        <div class="scwp-card scwp-card--primary scwp-card--border-top">
+                            <div class="scwp-card__header">
+                                <h3 class="scwp-card__title">Total Users</h3>
+                                <span class="scwp-card__icon">👥</span>
+                            </div>
+                            <div class="scwp-card__content">
+                                <span class="scwp-card__count">1,234</span>
+                                <p class="scwp-card__description">Active users this month</p>
+                            </div>
+                            <div class="scwp-card__actions">
+                                <button class="scwp-btn scwp-btn--primary scwp-btn--small">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-code-container">
+                    <div class="demo-code-header">
+                        <div class="demo-code-title">
+                            <span class="demo-code-lang">HTML</span>
+                            Top Border Card
+                        </div>
+                        <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                    </div>
+                    <pre class="demo-code"><code class="language-html">&lt;div class="scwp-card scwp-card--primary scwp-card--border-top"&gt;
+    &lt;div class="scwp-card__header"&gt;
+        &lt;h3 class="scwp-card__title"&gt;Total Users&lt;/h3&gt;
+        &lt;span class="scwp-card__icon"&gt;👥&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-card__content"&gt;
+        &lt;span class="scwp-card__count"&gt;1,234&lt;/span&gt;
+        &lt;p class="scwp-card__description"&gt;Active users this month&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-card__actions"&gt;
+        &lt;button class="scwp-btn scwp-btn--primary scwp-btn--small"&gt;View Details&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- Card 2: Left Border -->
+                <h4>2. Left Border</h4>
+                <div class="scwp-dashboard">
+                    <div class="scwp-dashboard__cards">
+                        <div class="scwp-card scwp-card--success scwp-card--border-left">
+                            <div class="scwp-card__header">
+                                <h3 class="scwp-card__title">Revenue</h3>
+                                <span class="scwp-card__icon">💰</span>
+                            </div>
+                            <div class="scwp-card__content">
+                                <span class="scwp-card__count">$12,500</span>
+                                <p class="scwp-card__description">+15% from last month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-code-container">
+                    <div class="demo-code-header">
+                        <div class="demo-code-title">
+                            <span class="demo-code-lang">HTML</span>
+                            Left Border Card
+                        </div>
+                        <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                    </div>
+                    <pre class="demo-code"><code class="language-html">&lt;div class="scwp-card scwp-card--success scwp-card--border-left"&gt;
+    &lt;div class="scwp-card__header"&gt;
+        &lt;h3 class="scwp-card__title"&gt;Revenue&lt;/h3&gt;
+        &lt;span class="scwp-card__icon"&gt;💰&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-card__content"&gt;
+        &lt;span class="scwp-card__count"&gt;$12,500&lt;/span&gt;
+        &lt;p class="scwp-card__description"&gt;+15% from last month&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- Card 3: Right Border -->
+                <h4>3. Right Border</h4>
+                <div class="scwp-dashboard">
+                    <div class="scwp-dashboard__cards">
+                        <div class="scwp-card scwp-card--warning scwp-card--border-right">
+                            <div class="scwp-card__header">
+                                <h3 class="scwp-card__title">Pending</h3>
+                                <span class="scwp-card__icon">⏰</span>
+                            </div>
+                            <div class="scwp-card__content">
+                                <span class="scwp-card__count">42</span>
+                                <p class="scwp-card__description">Items need attention</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-code-container">
+                    <div class="demo-code-header">
+                        <div class="demo-code-title">
+                            <span class="demo-code-lang">HTML</span>
+                            Right Border Card
+                        </div>
+                        <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                    </div>
+                    <pre class="demo-code"><code class="language-html">&lt;div class="scwp-card scwp-card--warning scwp-card--border-right"&gt;
+    &lt;div class="scwp-card__header"&gt;
+        &lt;h3 class="scwp-card__title"&gt;Pending&lt;/h3&gt;
+        &lt;span class="scwp-card__icon"&gt;⏰&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-card__content"&gt;
+        &lt;span class="scwp-card__count"&gt;42&lt;/span&gt;
+        &lt;p class="scwp-card__description"&gt;Items need attention&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- Card 4: Bottom Border -->
+                <h4>4. Bottom Border</h4>
+                <div class="scwp-dashboard">
+                    <div class="scwp-dashboard__cards">
+                        <div class="scwp-card scwp-card--danger scwp-card--border-bottom">
+                            <div class="scwp-card__header">
+                                <h3 class="scwp-card__title">Critical Issues</h3>
+                                <span class="scwp-card__icon">🚨</span>
+                            </div>
+                            <div class="scwp-card__content">
+                                <span class="scwp-card__count">8</span>
+                                <p class="scwp-card__description">Immediate action required</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-code-container">
+                    <div class="demo-code-header">
+                        <div class="demo-code-title">
+                            <span class="demo-code-lang">HTML</span>
+                            Bottom Border Card
+                        </div>
+                        <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                    </div>
+                    <pre class="demo-code"><code class="language-html">&lt;div class="scwp-card scwp-card--danger scwp-card--border-bottom"&gt;
+    &lt;div class="scwp-card__header"&gt;
+        &lt;h3 class="scwp-card__title"&gt;Critical Issues&lt;/h3&gt;
+        &lt;span class="scwp-card__icon"&gt;🚨&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-card__content"&gt;
+        &lt;span class="scwp-card__count"&gt;8&lt;/span&gt;
+        &lt;p class="scwp-card__description"&gt;Immediate action required&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- JavaScript Example -->
+                <h4>5. JavaScript Creation</h4>
+                <div class="demo-code-container">
+                    <div class="demo-code-header">
+                        <div class="demo-code-title">
+                            <span class="demo-code-lang">JS</span>
+                            Create Cards with JavaScript
+                        </div>
+                        <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                    </div>
+                    <pre class="demo-code"><code class="language-javascript">// Create different border positions
+const topCard = SCWPAdminUI.components.createCard({
+    title: 'Total Users',
+    content: '&lt;span class="scwp-card__count"&gt;1,234&lt;/span&gt;&lt;p class="scwp-card__description"&gt;Active users&lt;/p&gt;',
+    icon: '👥',
+    variant: 'primary',
+    borderPosition: 'top'
+});
+
+const leftCard = SCWPAdminUI.components.createCard({
+    title: 'Revenue',
+    content: '&lt;span class="scwp-card__count"&gt;$12,500&lt;/span&gt;&lt;p class="scwp-card__description"&gt;+15% growth&lt;/p&gt;',
+    icon: '💰',
+    variant: 'success',
+    borderPosition: 'left'
+});
+
+// Available options:
+// borderPosition: 'top', 'bottom', 'left', 'right'
+// variant: 'primary', 'success', 'warning', 'danger'</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Utilities -->
+        <section id="utilities" class="demo-section">
+            <h2>🔧 Utility Classes</h2>
+            
+            <h3>Spacing</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <div class="scwp-p-4 scwp-bg-primary" style="color: white;">Padding 4</div>
+                    <code>.scwp-p-4</code>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-m-4 scwp-bg-success" style="color: white;">Margin 4</div>
+                    <code>.scwp-m-4</code>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-mt-6 scwp-bg-warning" style="color: white;">Margin Top 6</div>
+                    <code>.scwp-mt-6</code>
+                </div>
+            </div>
+
+            <h3>Typography</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <p class="scwp-text-xl scwp-font-bold">Extra Large Bold</p>
+                    <code>.scwp-text-xl .scwp-font-bold</code>
+                </div>
+                <div class="utility-example">
+                    <p class="scwp-text-sm scwp-text-muted">Small Muted Text</p>
+                    <code>.scwp-text-sm .scwp-text-muted</code>
+                </div>
+                <div class="utility-example">
+                    <p class="scwp-text-center scwp-text-primary">Centered Primary</p>
+                    <code>.scwp-text-center .scwp-text-primary</code>
+                </div>
+            </div>
+
+            <h3>Layout</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <div class="scwp-flex scwp-gap-3">
+                        <div class="scwp-bg-gray-200 scwp-p-2">Item 1</div>
+                        <div class="scwp-bg-gray-200 scwp-p-2">Item 2</div>
+                    </div>
+                    <code>.scwp-flex .scwp-gap-3</code>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-flex scwp-items-center scwp-justify-between">
+                        <span>Left</span>
+                        <span>Right</span>
+                    </div>
+                    <code>.scwp-flex .scwp-items-center .scwp-justify-between</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- WordPress Examples -->
+        <section id="examples" class="demo-section">
+            <h2>🔌 WordPress Integration Examples</h2>
+            
+            <h3>Simple Plugin Dashboard</h3>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">PHP</span>
+                        Plugin Dashboard Function
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-php">function render_plugin_dashboard() {
+    ?>
+    &lt;div class="scwp-ui"&gt;
+        &lt;div class="scwp-dashboard"&gt;
+            &lt;div class="scwp-dashboard__cards"&gt;
+                &lt;div class="scwp-card scwp-card--primary"&gt;
+                    &lt;div class="scwp-card__header"&gt;
+                        &lt;h3 class="scwp-card__title"&gt;Total Posts&lt;/h3&gt;
+                        &lt;span class="scwp-card__icon"&gt;📝&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="scwp-card__content"&gt;
+                        &lt;span class="scwp-card__count"&gt;
+                            &lt;?php echo wp_count_posts()-&gt;publish; ?&gt;
+                        &lt;/span&gt;
+                        &lt;p class="scwp-card__description"&gt;Published posts&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;?php
+}</code></pre>
+            </div>
+
+            <h3>Settings Page with Tabs</h3>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">PHP</span>
+                        Settings Page Function
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-php">function render_settings_page() {
+    ?>
+    &lt;div class="scwp-ui"&gt;
+        &lt;nav class="scwp-nav-tabs"&gt;
+            &lt;a href="#general" class="scwp-nav-tab scwp-nav-tab--active"&gt;
+                General
+            &lt;/a&gt;
+            &lt;a href="#advanced" class="scwp-nav-tab"&gt;
+                Advanced
+            &lt;/a&gt;
+        &lt;/nav&gt;
+        
+        &lt;form method="post"&gt;
+            &lt;div class="scwp-form-group"&gt;
+                &lt;label class="scwp-label"&gt;Plugin Name&lt;/label&gt;
+                &lt;input type="text" class="scwp-input" name="plugin_name"&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="scwp-form-group"&gt;
+                &lt;div class="scwp-flex scwp-items-center scwp-gap-3"&gt;
+                    &lt;label class="scwp-toggle"&gt;
+                        &lt;input type="checkbox" 
+                               class="scwp-toggle__input" 
+                               name="enable_feature"&gt;
+                        &lt;span class="scwp-toggle__slider"&gt;&lt;/span&gt;
+                    &lt;/label&gt;
+                    &lt;span class="scwp-label"&gt;Enable Feature&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;button type="submit" class="scwp-btn scwp-btn--primary"&gt;
+                Save Settings
+            &lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;?php
+}</code></pre>
+            </div>
+
+            <h3>Interactive JavaScript Example</h3>
+            <div class="interactive-demo">
+                <h4>Try the Components</h4>
+                <p>Click the button below to see a notification:</p>
+                <button class="scwp-btn scwp-btn--primary" onclick="showDemoNotification()">
+                    Show Notification
+                </button>
+                
+                <div class="scwp-mt-6">
+                    <div class="scwp-flex scwp-items-center scwp-gap-3">
+                        <label class="scwp-toggle">
+                            <input type="checkbox" class="scwp-toggle__input" onchange="handleToggleChange(this)">
+                            <span class="scwp-toggle__slider"></span>
+                        </label>
+                        <span class="scwp-label">Try this toggle</span>
+                    </div>
+                </div>
+                
+                <div id="toggle-status" class="scwp-mt-4 scwp-text-muted"></div>
+            </div>
+        </section>
+
+        <!-- Emoji Library -->
+        <section id="emojis" class="demo-section">
+            <h2>😀 Emoji Library</h2>
+            <p>Uma biblioteca abrangente de emojis categorizada para interfaces de admin WordPress.</p>
+            
+            <h3>Severity/Status Emojis</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2" id="severity-demo">🚨</div>
+                    <p><strong>Critical/Error:</strong> Para issues críticas</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Critical Error
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.severity.critical;
+console.log(`${emoji} Critical error detected!`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">⚠️</div>
+                    <p><strong>Warning:</strong> Para avisos importantes</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Warning Alert
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.severity.warning;
+alert(`${emoji} Warning: Check your settings!`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">ℹ️</div>
+                    <p><strong>Info:</strong> Para informações gerais</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Info Message
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.severity.info;
+notify(`${emoji} Database updated successfully`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">✅</div>
+                    <p><strong>Success:</strong> Para operações bem-sucedidas</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Success Notification
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.severity.success;
+showMessage(`${emoji} Plugin activated!`);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Action/Function Emojis</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">🔍</div>
+                    <p><strong>Scan/Search:</strong> Para funções de busca</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Search Function
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.actions.scan;
+startSearch(`${emoji} Scanning for issues...`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">🛠️</div>
+                    <p><strong>Tools/Fix:</strong> Para ferramentas e correções</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Fix Tool
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.actions.tools;
+runFix(`${emoji} Auto-fixing issues...`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">📊</div>
+                    <p><strong>Stats/Data:</strong> Para estatísticas</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Statistics
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.actions.stats;
+showStats(`${emoji} Processing analytics...`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">🔄</div>
+                    <p><strong>Refresh:</strong> Para atualizações</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Refresh Data
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.actions.refresh;
+refreshData(`${emoji} Refreshing data...`);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Feature Emojis</h3>
+            <div class="utility-showcase">
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">♿</div>
+                    <p><strong>Accessibility:</strong> Para acessibilidade</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Accessibility Check
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.features.accessibility;
+checkA11y(`${emoji} Accessibility scan complete`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">⚡</div>
+                    <p><strong>Performance:</strong> Para performance</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Performance Monitor
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.features.performance;
+monitorPerf(`${emoji} Performance optimized!`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">📱</div>
+                    <p><strong>Responsive:</strong> Para design responsivo</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Responsive Design
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.features.responsive;
+checkMobile(`${emoji} Mobile-friendly layout`);</code></pre>
+                    </div>
+                </div>
+                <div class="utility-example">
+                    <div class="scwp-text-center scwp-text-2xl scwp-mb-2">🚀</div>
+                    <p><strong>Technology:</strong> Para inovação</p>
+                    <div class="demo-code-container">
+                        <div class="demo-code-header">
+                            <div class="demo-code-title">
+                                <span class="demo-code-lang">JS</span>
+                                Innovation
+                            </div>
+                            <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                        </div>
+                        <pre class="demo-code"><code class="language-javascript">const emoji = SCWPEmoji.features.rocket;
+launchFeature(`${emoji} New feature launched!`);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Interactive Demo</h3>
+            <div class="interactive-demo">
+                <h4>Teste a Biblioteca de Emojis</h4>
+                <div class="scwp-flex scwp-gap-4 scwp-mb-4">
+                    <button class="scwp-btn scwp-btn--primary" onclick="demonstrateEmojiLibrary()">
+                        Demonstrar Emojis
+                    </button>
+                    <button class="scwp-btn scwp-btn--secondary" onclick="searchEmojis()">
+                        Pesquisar Emojis
+                    </button>
+                </div>
+                
+                <div id="emoji-output" class="scwp-p-4 scwp-bg-gray-50 scwp-rounded scwp-text-center">
+                    Clique nos botões acima para testar a biblioteca de emojis
+                </div>
+            </div>
+
+            <h3>JavaScript Usage</h3>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">JS</span>
+                        Basic Usage Examples
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-javascript">// Basic usage examples
+const errorEmoji = SCWPEmoji.utils.getSeverityEmoji('error'); // 🚨
+const scanEmoji = SCWPEmoji.utils.getActionEmoji('scan'); // 🔍
+
+// Create notifications with emojis
+SCWPAdminUI.utils.showNotification(
+    `${errorEmoji} Critical error detected!`,
+    'error'
+);</code></pre>
+            </div>
+
+            <h3>PHP Integration</h3>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">PHP</span>
+                        WordPress Integration
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-php">// Enqueue the emoji library
+function enqueue_scwp_emoji_library() {
+    wp_enqueue_script(
+        'scwp-emoji-library',
+        plugin_dir_url(__FILE__) . 'assets/js/scwp-emoji-library.js',
+        array(),
+        '1.0.0',
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'enqueue_scwp_emoji_library');
+
+// Use in admin notices
+function show_admin_notice() {
+    echo '&lt;div class="notice notice-success"&gt;';
+    echo '&lt;p&gt;✅ Plugin ativado com sucesso!&lt;/p&gt;';
+    echo '&lt;/div&gt;';
+}</code></pre>
+            </div>
+            
+            <h3>Emoji Picker</h3>
+            <p>Clique em qualquer emoji para copiá-lo para o clipboard:</p>
+            <div class="emoji-picker-container">
+                <div class="emoji-grid">
+                    <button class="emoji-btn" data-emoji="🚨" title="Critical/Error">🚨</button>
+                    <button class="emoji-btn" data-emoji="⚠️" title="Warning">⚠️</button>
+                    <button class="emoji-btn" data-emoji="ℹ️" title="Info">ℹ️</button>
+                    <button class="emoji-btn" data-emoji="✅" title="Success">✅</button>
+                    <button class="emoji-btn" data-emoji="❓" title="Unknown">❓</button>
+                    <button class="emoji-btn" data-emoji="🔍" title="Search/Scan">🔍</button>
+                    <button class="emoji-btn" data-emoji="🛠️" title="Tools/Fix">🛠️</button>
+                    <button class="emoji-btn" data-emoji="🔧" title="Settings">🔧</button>
+                    <button class="emoji-btn" data-emoji="⚙️" title="Gear">⚙️</button>
+                    <button class="emoji-btn" data-emoji="📊" title="Stats/Dashboard">📊</button>
+                    <button class="emoji-btn" data-emoji="📝" title="Log/Note">📝</button>
+                    <button class="emoji-btn" data-emoji="📖" title="Documentation">📖</button>
+                    <button class="emoji-btn" data-emoji="🔄" title="Refresh/Update">🔄</button>
+                    <button class="emoji-btn" data-emoji="🎯" title="Target/Focus">🎯</button>
+                    <button class="emoji-btn" data-emoji="♿" title="Accessibility">♿</button>
+                    <button class="emoji-btn" data-emoji="⚡" title="Performance">⚡</button>
+                    <button class="emoji-btn" data-emoji="🎨" title="Design/UI">🎨</button>
+                    <button class="emoji-btn" data-emoji="📱" title="Mobile/Responsive">📱</button>
+                    <button class="emoji-btn" data-emoji="🚀" title="Technology/Launch">🚀</button>
+                    <button class="emoji-btn" data-emoji="🔗" title="Link/Connect">🔗</button>
+                    <button class="emoji-btn" data-emoji="✨" title="Innovation/New">✨</button>
+                    <button class="emoji-btn" data-emoji="📦" title="Package">📦</button>
+                    <button class="emoji-btn" data-emoji="🧩" title="Components">🧩</button>
+                    <button class="emoji-btn" data-emoji="🏆" title="Quality/Award">🏆</button>
+                    <button class="emoji-btn" data-emoji="💼" title="Professional">💼</button>
+                    <button class="emoji-btn" data-emoji="📄" title="Content/Page">📄</button>
+                    <button class="emoji-btn" data-emoji="👤" title="User">👤</button>
+                    <button class="emoji-btn" data-emoji="👥" title="Users">👥</button>
+                    <button class="emoji-btn" data-emoji="👨‍💼" title="Admin">👨‍💼</button>
+                    <button class="emoji-btn" data-emoji="🖼️" title="Media/Image">🖼️</button>
+                    <button class="emoji-btn" data-emoji="🔌" title="Plugin">🔌</button>
+                    <button class="emoji-btn" data-emoji="🎭" title="Theme">🎭</button>
+                </div>
+                <div class="emoji-feedback" id="emojiCopyFeedback" style="opacity: 0; visibility: hidden;">
+                    <span class="copy-success">✅ Emoji copiado!</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customization -->
+        <section class="demo-section">
+            <h2>🎨 Customization</h2>
+            
+            <h3>CSS Custom Properties</h3>
+            <p>Easily customize the design system by overriding CSS variables:</p>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">CSS</span>
+                        Custom Properties
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-css">:root {
+    --scwp-primary: #your-color;
+    --scwp-success: #your-success-color;
+    --scwp-border-radius: 12px;
+    --scwp-font-family: 'Your Font', sans-serif;
+}</code></pre>
+            </div>
+
+            <h3>Dark Theme Example</h3>
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">CSS</span>
+                        Dark Theme Override
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-css">.scwp-ui.dark-theme {
+    --scwp-white: #2d2d2d;
+    --scwp-wp-background: #1e1e1e;
+    --scwp-wp-text: #ffffff;
+    --scwp-wp-border: #444444;
+}</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="demo-footer">
+        <div class="demo-main">
+            <p>&copy; 2024 SCWP Admin UI Design System. Built with ❤️ for WordPress developers.</p>
+            <p>
+                <a href="https://github.com/matias2018/scwp-admin-ui">GitHub</a> • 
+                <a href="mailto:pedro@pedromatias.dev">Contact</a>
+            </p>
+        </div>
+    </footer>
+
+    <div class="scwp-ui">
+        <!-- Hidden elements for notifications -->
+    </div>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <!-- CodeMirror JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/php/php.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/clike/clike.js"></script>
+    
+    <script src="js/scwp-admin-ui.js"></script>
+    <script src="js/scwp-emoji-library.js"></script>
+    <script>
+        // Demo-specific JavaScript
+        function showDemoNotification() {
+            // Use the core SCWP Admin UI notification system
+            SCWPAdminUI.utils.showNotification(
+                '<strong>Success!</strong> This is a demo notification with auto-dismiss.',
+                'success',
+                3000,
+                { floating: true }
+            );
+        }
+
+        function handleToggleChange(toggle) {
+            const status = document.getElementById('toggle-status');
+            status.textContent = toggle.checked ? 'Toggle is ON' : 'Toggle is OFF';
+            status.className = toggle.checked ? 'scwp-mt-4 scwp-text-success' : 'scwp-mt-4 scwp-text-muted';
+        }
+
+
+        // Initialize demo status
+        document.getElementById('toggle-status').textContent = 'Toggle is OFF';
+
+        // Emoji library demo functions
+        function demonstrateEmojiLibrary() {
+            const output = document.getElementById('emoji-output');
+            const demonstrations = [
+                `${SCWPEmoji.utils.getSeverityEmoji('error')} Erro crítico detectado!`,
+                `${SCWPEmoji.utils.getActionEmoji('scan')} Executando verificação...`,
+                `${SCWPEmoji.utils.getFeatureEmoji('accessibility')} Verificação de acessibilidade completa`,
+                `${SCWPEmoji.utils.getWordPressEmoji('plugin')} Plugin ativado com sucesso`
+            ];
+            
+            let index = 0;
+            const interval = setInterval(() => {
+                output.innerHTML = `<div class="scwp-text-lg">${demonstrations[index]}</div>`;
+                index++;
+                
+                if (index >= demonstrations.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        output.innerHTML = `<div class="scwp-text-success">✅ Demonstração completa! Total de emojis: ${SCWPEmoji.utils.getAllEmojis().length}</div>`;
+                    }, 1500);
+                }
+            }, 1000);
+        }
+
+        function searchEmojis() {
+            const searchTerms = ['scan', 'error', 'success', 'tool'];
+            const randomTerm = searchTerms[Math.floor(Math.random() * searchTerms.length)];
+            const results = SCWPEmoji.utils.searchEmoji(randomTerm);
+            
+            const output = document.getElementById('emoji-output');
+            const resultsHtml = results.map(result => 
+                `<span class="scwp-text-lg scwp-m-2" title="${result.category}.${result.key}">${result.emoji}</span>`
+            ).join('');
+            
+            output.innerHTML = `
+                <div class="scwp-mb-3">Resultados para "${randomTerm}":</div>
+                <div>${resultsHtml}</div>
+                <div class="scwp-mt-3 scwp-text-sm scwp-text-muted">${results.length} emojis encontrados</div>
+            `;
+        }
+
+        // Emoji Copy Functionality
+        function copyEmojiToClipboard(emoji) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(emoji).then(function() {
+                    showCopyFeedback();
+                }).catch(function() {
+                    fallbackCopyEmoji(emoji);
+                });
+            } else {
+                fallbackCopyEmoji(emoji);
+            }
+        }
+
+        function fallbackCopyEmoji(emoji) {
+            const textArea = document.createElement('textarea');
+            textArea.value = emoji;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopyFeedback();
+            } catch (err) {
+                console.error('Erro ao copiar emoji:', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showCopyFeedback() {
+            const feedback = document.getElementById('emojiCopyFeedback');
+            
+            if (!feedback) {
+                console.error('Elemento emojiCopyFeedback não encontrado');
+                return;
+            }
+            
+            // Clear any existing timeout
+            if (window.emojiHideTimeout) {
+                clearTimeout(window.emojiHideTimeout);
+            }
+            
+            // Force hide first
+            feedback.classList.remove('show');
+            feedback.style.opacity = '0';
+            feedback.style.visibility = 'hidden';
+            
+            // Show after small delay to ensure DOM update
+            setTimeout(function() {
+                feedback.classList.add('show');
+                feedback.style.opacity = '1';
+                feedback.style.visibility = 'visible';
+                
+                // Hide after 2 seconds
+                window.emojiHideTimeout = setTimeout(function() {
+                    feedback.classList.remove('show');
+                    feedback.style.opacity = '0';
+                    feedback.style.visibility = 'hidden';
+                }, 2000);
+            }, 50);
+        }
+
+        // Initialize emoji buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure feedback is hidden on page load
+            const feedback = document.getElementById('emojiCopyFeedback');
+            if (feedback) {
+                feedback.classList.remove('show');
+                feedback.style.opacity = '0';
+                feedback.style.visibility = 'hidden';
+            }
+            
+            // Initialize emoji button click handlers
+            const emojiButtons = document.querySelectorAll('.emoji-btn');
+            emojiButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const emoji = this.getAttribute('data-emoji');
+                    copyEmojiToClipboard(emoji);
+                });
+            });
+        });
+
+        // Listen for emoji library initialization
+        document.addEventListener('scwp-emoji:initialized', function(e) {
+            console.log('📚 SCWP Emoji Library carregada!', e.detail);
+        });
+
+        // CodeMirror Enhanced Code Viewer
+        let codeEditor = null;
+        let isDarkTheme = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize CodeMirror for enhanced code viewer
+            if (typeof CodeMirror !== 'undefined') {
+                const textarea = document.getElementById('code-example');
+                if (textarea) {
+                    codeEditor = CodeMirror.fromTextArea(textarea, {
+                        mode: 'javascript',
+                        theme: 'default',
+                        lineNumbers: true,
+                        readOnly: true,
+                        lineWrapping: true,
+                        foldGutter: true,
+                        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+                        extraKeys: {
+                            'Ctrl-A': function(cm) {
+                                cm.setSelection({line: 0, ch: 0}, {line: cm.lineCount() - 1});
+                            }
+                        }
+                    });
+
+                    // Set initial height
+                    codeEditor.setSize(null, 'auto');
+                }
+            }
+        });
+
+        // Toggle code theme function
+        function toggleCodeTheme() {
+            if (codeEditor) {
+                isDarkTheme = !isDarkTheme;
+                const theme = isDarkTheme ? 'material-darker' : 'default';
+                codeEditor.setOption('theme', theme);
+                
+                const viewer = document.getElementById('demo-code-viewer');
+                if (isDarkTheme) {
+                    viewer.classList.add('dark-theme');
+                } else {
+                    viewer.classList.remove('dark-theme');
+                }
+            }
+        }
+
+        // Copy code to clipboard function
+        function copyCodeToClipboard() {
+            if (codeEditor) {
+                const code = codeEditor.getValue();
+                
+                // Use modern Clipboard API if available
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(code).then(function() {
+                        SCWPAdminUI.utils.showNotification(
+                            '📋 Código copiado para a área de transferência!',
+                            'success',
+                            2000
+                        );
+                    }).catch(function(err) {
+                        console.error('Erro ao copiar código:', err);
+                        fallbackCopyTextToClipboard(code);
+                    });
+                } else {
+                    // Fallback for older browsers
+                    fallbackCopyTextToClipboard(code);
+                }
+            }
+        }
+
+        // Fallback copy function for older browsers
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    SCWPAdminUI.utils.showNotification(
+                        '📋 Código copiado para a área de transferência!',
+                        'success',
+                        2000
+                    );
+                } else {
+                    SCWPAdminUI.utils.showNotification(
+                        '❌ Erro ao copiar código',
+                        'error',
+                        3000
+                    );
+                }
+            } catch (err) {
+                console.error('Erro ao copiar código:', err);
+                SCWPAdminUI.utils.showNotification(
+                    '❌ Erro ao copiar código',
+                    'error',
+                    3000
+                );
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Copy function for demo code blocks
+        function copyDemoCode(button) {
+            const container = button.closest('.demo-code-container');
+            const codeBlock = container.querySelector('code');
+            const text = codeBlock.textContent;
+            
+            // Use modern Clipboard API if available
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopySuccess(button);
+                }).catch(function(err) {
+                    console.error('Erro ao copiar código:', err);
+                    fallbackCopyTextToClipboard(text);
+                    showCopySuccess(button);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(text);
+                showCopySuccess(button);
+            }
+        }
+
+        // Show copy success feedback
+        function showCopySuccess(button) {
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            setTimeout(function() {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        // Initialize Prism.js when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+
+        // Mobile menu functionality
+        let mobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            const burger = document.getElementById('demo-burger');
+            const mobileNav = document.getElementById('demo-nav-mobile');
+            
+            mobileMenuOpen = !mobileMenuOpen;
+            
+            if (mobileMenuOpen) {
+                burger.classList.add('active');
+                mobileNav.classList.add('active');
+            } else {
+                burger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            }
+        }
+
+        function closeMobileMenu() {
+            const burger = document.getElementById('demo-burger');
+            const mobileNav = document.getElementById('demo-nav-mobile');
+            
+            mobileMenuOpen = false;
+            burger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        }
+
+        // Close mobile menu when scrolling (mobile only)
+        window.addEventListener('scroll', function() {
+            if (mobileMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const header = document.getElementById('demo-header');
+            const burger = document.getElementById('demo-burger');
+            
+            if (mobileMenuOpen && !header.contains(event.target) && !burger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (mobileMenuOpen && window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Enhanced smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    // Close mobile menu before scrolling
+                    if (mobileMenuOpen) {
+                        closeMobileMenu();
+                    }
+                    
+                    // Calculate offset to account for sticky header
+                    const headerHeight = document.getElementById('demo-header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
