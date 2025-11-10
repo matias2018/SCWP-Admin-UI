@@ -1,0 +1,152 @@
+/**
+ * SCWP Admin UI Design System
+ * CSS Custom Properties / Variables
+ * 
+ * @version 1.0.0
+ * @author SCWP Matias
+ * @description Reusable design system for WordPress admin plugins
+ */
+
+:root {
+    /* === COLORS === */
+    /* Primary Brand Colors */
+    --scwp-primary: #4383f0;
+    --scwp-primary-dark: #2c5aa0;
+    --scwp-primary-light: #6ba3f5;
+    
+    /* Semantic Colors */
+    --scwp-success: #00a32a;
+    --scwp-success-light: #00b92c;
+    --scwp-warning: #dba617;
+    --scwp-warning-light: #f0c930;
+    --scwp-danger: #dc3232;
+    --scwp-danger-light: #e65555;
+    --scwp-info: #0073aa;
+    --scwp-info-light: #0085ba;
+    
+    /* Neutral Colors */
+    --scwp-white: #ffffff;
+    --scwp-gray-50: #f9fafb;
+    --scwp-gray-100: #f3f4f6;
+    --scwp-gray-200: #e5e7eb;
+    --scwp-gray-300: #d1d5db;
+    --scwp-gray-400: #9ca3af;
+    --scwp-gray-500: #6b7280;
+    --scwp-gray-600: #4b5563;
+    --scwp-gray-700: #374151;
+    --scwp-gray-800: #1f2937;
+    --scwp-gray-900: #111827;
+    
+    /* WordPress Admin Colors */
+    --scwp-wp-background: #f1f1f1;
+    --scwp-wp-text: #23282d;
+    --scwp-wp-text-light: #666;
+    --scwp-wp-border: #e0e0e0;
+    --scwp-wp-blue: #0073aa;
+    
+    /* === TYPOGRAPHY === */
+    --scwp-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --scwp-font-family-mono: 'Courier New', monospace;
+    
+    /* Font Sizes */
+    --scwp-text-xs: 9px;
+    --scwp-text-sm: 10px;
+    --scwp-text-base: 11px;
+    --scwp-text-lg: 12px;
+    --scwp-text-xl: 14px;
+    --scwp-text-2xl: 16px;
+    --scwp-text-3xl: 22px;
+    --scwp-text-4xl: 30px;
+    --scwp-text-5xl: 36px;
+    
+    /* Font Weights */
+    --scwp-font-normal: 400;
+    --scwp-font-medium: 500;
+    --scwp-font-semibold: 600;
+    --scwp-font-bold: 700;
+    
+    /* Line Heights */
+    --scwp-leading-tight: 1.2;
+    --scwp-leading-normal: 1.4;
+    --scwp-leading-relaxed: 1.6;
+    
+    /* === SPACING === */
+    --scwp-space-1: 4px;
+    --scwp-space-2: 8px;
+    --scwp-space-3: 12px;
+    --scwp-space-4: 16px;
+    --scwp-space-5: 20px;
+    --scwp-space-6: 24px;
+    --scwp-space-8: 32px;
+    --scwp-space-10: 40px;
+    --scwp-space-12: 48px;
+    --scwp-space-16: 64px;
+    --scwp-space-20: 80px;
+    
+    /* === BORDERS === */
+    --scwp-border-radius: 6px;
+    --scwp-border-radius-sm: 3px;
+    --scwp-border-radius-lg: 8px;
+    --scwp-border-radius-xl: 12px;
+    
+    --scwp-border-width: 1px;
+    --scwp-border-width-2: 2px;
+    --scwp-border-width-4: 4px;
+    
+    /* === SHADOWS === */
+    --scwp-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --scwp-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --scwp-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --scwp-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --scwp-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    
+    /* Card Specific Shadows */
+    --scwp-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --scwp-card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    
+    /* === TRANSITIONS === */
+    --scwp-transition-fast: 150ms ease;
+    --scwp-transition: 300ms ease;
+    --scwp-transition-slow: 500ms ease;
+    
+    /* === Z-INDEX === */
+    --scwp-z-dropdown: 1000;
+    --scwp-z-modal: 9000;
+    --scwp-z-tooltip: 9999;
+    --scwp-z-notification: 999999;
+    
+    /* === COMPONENT SIZES === */
+    --scwp-button-height-sm: 28px;
+    --scwp-button-height: 32px;
+    --scwp-button-height-lg: 40px;
+    
+    --scwp-input-height-sm: 28px;
+    --scwp-input-height: 32px;
+    --scwp-input-height-lg: 40px;
+    
+    /* === LAYOUT === */
+    --scwp-container-sm: 640px;
+    --scwp-container-md: 768px;
+    --scwp-container-lg: 1024px;
+    --scwp-container-xl: 1280px;
+    
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --scwp-wp-background: #1e1e1e;
+        --scwp-wp-text: #ffffff;
+        --scwp-wp-text-light: #cccccc;
+        --scwp-wp-border: #444444;
+        --scwp-white: #2d2d2d;
+    }
+}
+
+/* === LEGACY BROWSER FALLBACKS === */
+/* For browsers that don't support CSS custom properties */
+.scwp-ui-fallback {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #23282d;
+    background: #f1f1f1;
+}

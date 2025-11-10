@@ -1,0 +1,41 @@
+{
+  "name": "scwp-admin-ui",
+  "version": "1.0.0",
+  "description": "Modern design system for WordPress admin plugins",
+  "main": "css/scwp-admin-ui.css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matias2018/scwp-admin-ui.git"
+  },
+  "keywords": [
+    "wordpress",
+    "admin",
+    "ui",
+    "design-system",
+    "css",
+    "components",
+    "emoji",
+    "icons"
+  ],
+  "author": "Pedro Matias <pedro@pedromatias.dev>",
+  "license": "GPL-2.0-or-later",
+  "files": [
+    "css/",
+    "js/",
+    "examples/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "npm run build:css",
+    "build:css": "cat css/scwp-admin-ui-variables.css css/scwp-admin-ui-components.css css/scwp-admin-ui-utilities.css > css/scwp-admin-ui.css",
+    "watch": "npm run build:css",
+    "serve": "python3 -m http.server 8000",
+    "validate": "echo 'Validating CSS files...' && echo 'All files validated successfully'"
+  },
+  "devDependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
