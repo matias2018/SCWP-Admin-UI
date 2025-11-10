@@ -1192,3 +1192,798 @@
     outline: 2px solid var(--scwp-primary);
     outline-offset: 2px;
 }
+
+/* === CCM VARIANT COMPONENTS (Conflicted Elements) === */
+
+/* CCM-Style Buttons */
+.scwp-btn--ccm-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    font-size: var(--scwp-text-lg);
+    font-weight: var(--scwp-font-medium);
+    padding: 12px 24px;
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+}
+
+.scwp-btn--ccm-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+    transform: none;
+}
+
+.scwp-btn--ccm-reset {
+    background: #d63638;
+    border-color: #d63638;
+    color: #fff;
+    font-size: var(--scwp-text-lg);
+    font-weight: var(--scwp-font-medium);
+    padding: 12px 24px;
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+    margin-left: 10px;
+}
+
+.scwp-btn--ccm-reset:hover {
+    background: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+    transform: none;
+}
+
+.scwp-btn--ccm-copy {
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    color: #2c3338;
+    font-size: 13px;
+    font-weight: var(--scwp-font-medium);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+}
+
+.scwp-btn--ccm-copy:hover {
+    background: #f0f0f1;
+    border-color: #8c8f94;
+    color: #1d2327;
+    transform: none;
+}
+
+.scwp-btn--ccm-copy:focus {
+    outline: none;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* CCM-Style Form Fields */
+.scwp-input--ccm,
+.scwp-textarea--ccm,
+.scwp-select--ccm {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 16px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    font-size: var(--scwp-text-lg);
+    line-height: 1.4;
+    background: var(--scwp-white);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.scwp-input--ccm:focus,
+.scwp-textarea--ccm:focus,
+.scwp-select--ccm:focus {
+    outline: none;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.scwp-textarea--ccm {
+    min-height: 120px;
+    resize: vertical;
+    height: auto;
+}
+
+.scwp-input--ccm-api {
+    max-width: 400px;
+}
+
+/* CCM-Style Labels */
+.scwp-label--ccm {
+    font-size: var(--scwp-text-lg);
+    font-weight: var(--scwp-font-semibold);
+    color: #1d2327;
+    margin-bottom: var(--scwp-space-2);
+    display: block;
+}
+
+.scwp-label--ccm-description {
+    font-size: 13px;
+    color: #646970;
+    font-style: italic;
+    display: block;
+    margin-top: var(--scwp-space-1);
+}
+
+/* CCM-Style Cards/Containers */
+.scwp-card--ccm {
+    background: var(--scwp-white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin: 0 20px 20px 20px;
+    border: none;
+}
+
+.scwp-card--ccm .scwp-card__title {
+    color: #1d2327;
+    font-size: 24px;
+    font-weight: var(--scwp-font-semibold);
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.scwp-card--ccm .scwp-card__subtitle {
+    color: #646970;
+    font-size: var(--scwp-text-2xl);
+    font-weight: var(--scwp-font-medium);
+    margin: 30px 0 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.scwp-form-container--ccm {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* CCM-Style Page Wrapper */
+.scwp-wrap--ccm {
+    background: #f8f9fa;
+    margin: 20px 0 0 -20px;
+    padding: 0;
+}
+
+.scwp-logo-header--ccm {
+    background: var(--scwp-white);
+    padding: 20px;
+    margin: 0 0 30px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* CCM-Style Position Selector (Enhanced) */
+.scwp-position-selector--ccm .scwp-position-selector__screen {
+    width: 300px;
+    height: 170px;
+    background: #1d2327;
+    border: 8px solid #1d2327;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    gap: 3px;
+}
+
+.scwp-position-selector--ccm .scwp-position-selector__option {
+    background: #646970;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.scwp-position-selector--ccm .scwp-position-selector__option:hover {
+    background: #8c8f94;
+    border: none;
+}
+
+.scwp-position-selector--ccm .scwp-position-selector__option.selected {
+    background: #2271b1;
+}
+
+.scwp-position-selector--ccm .scwp-position-selector__option.selected::after {
+    background: var(--scwp-white);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* === CCM TABLE & CARD COMPONENTS === */
+
+/* Cookie Data Tables (CCM Style) */
+.scwp-cookies-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--scwp-font-family);
+    margin: 20px 0;
+    border: 1px solid var(--scwp-wp-border);
+}
+
+.scwp-table-heading {
+    font-size: var(--scwp-text-3xl);
+    font-weight: var(--scwp-font-semibold);
+    margin-bottom: var(--scwp-space-3);
+    color: var(--scwp-wp-text);
+}
+
+.scwp-table-caption {
+    font-size: var(--scwp-text-lg);
+    font-weight: var(--scwp-font-semibold);
+    margin-bottom: var(--scwp-space-4);
+    text-align: left;
+    color: var(--scwp-wp-text);
+    padding: var(--scwp-space-3) 0;
+}
+
+/* Table Styles - None (Basic) */
+.scwp-cookies-table--none {
+    border: 1px solid var(--scwp-wp-border);
+}
+
+.scwp-cookies-table--none thead th {
+    background-color: var(--scwp-gray-100);
+    color: var(--scwp-wp-text);
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: var(--scwp-font-semibold);
+    border-bottom: 1px solid var(--scwp-wp-border);
+}
+
+.scwp-cookies-table--none tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--scwp-gray-200);
+    color: var(--scwp-wp-text);
+}
+
+/* Table Styles - Classic (Black/White/Gray) */
+.scwp-cookies-table--classic {
+    border: 1px solid #ddd;
+}
+
+.scwp-cookies-table--classic thead th {
+    background-color: #333;
+    color: #fff;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+}
+
+.scwp-cookies-table--classic tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.scwp-cookies-table--classic tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.scwp-cookies-table--classic tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.scwp-cookies-table--classic tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Table Styles - Blue Corporate */
+.scwp-cookies-table--blue {
+    border: 1px solid #2271b1;
+    box-shadow: 0 2px 8px rgba(34, 113, 177, 0.1);
+}
+
+.scwp-cookies-table--blue thead th {
+    background-color: #2271b1;
+    color: #fff;
+    padding: 15px;
+    text-align: left;
+    font-weight: var(--scwp-font-semibold);
+    border-bottom: 2px solid #135e96;
+}
+
+.scwp-cookies-table--blue tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #c3e4f0;
+    color: #1d2327;
+}
+
+.scwp-cookies-table--blue tbody tr:nth-child(even) {
+    background-color: #f0f6fc;
+}
+
+.scwp-cookies-table--blue tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.scwp-cookies-table--blue tbody tr:hover {
+    background-color: #e8f3ff;
+}
+
+/* Table Styles - Green Nature */
+.scwp-cookies-table--green {
+    border: 1px solid var(--scwp-success);
+    box-shadow: 0 2px 8px rgba(0, 163, 42, 0.1);
+}
+
+.scwp-cookies-table--green thead th {
+    background-color: var(--scwp-success);
+    color: #fff;
+    padding: 15px;
+    text-align: left;
+    font-weight: var(--scwp-font-semibold);
+    border-bottom: 2px solid #007a20;
+}
+
+.scwp-cookies-table--green tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #c6e9c6;
+    color: #1d2327;
+}
+
+.scwp-cookies-table--green tbody tr:nth-child(even) {
+    background-color: #f0f9f0;
+}
+
+.scwp-cookies-table--green tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.scwp-cookies-table--green tbody tr:hover {
+    background-color: #e8f5e8;
+}
+
+/* Cookie Policy Cards (Alternative to Tables) */
+.scwp-cookies-list {
+    margin: 20px 0;
+    font-family: var(--scwp-font-family);
+}
+
+.scwp-list-heading {
+    font-size: var(--scwp-text-3xl);
+    font-weight: var(--scwp-font-semibold);
+    margin-bottom: var(--scwp-space-3);
+    color: var(--scwp-wp-text);
+}
+
+.scwp-list-description {
+    margin-bottom: var(--scwp-space-6);
+    color: var(--scwp-wp-text-light);
+    line-height: var(--scwp-leading-relaxed);
+}
+
+.scwp-cookies-definition-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.scwp-cookie-item {
+    margin-bottom: var(--scwp-space-6);
+    padding: var(--scwp-space-5);
+    border: var(--scwp-border-width) solid var(--scwp-wp-border);
+    border-radius: var(--scwp-border-radius);
+    background: var(--scwp-white);
+    transition: all var(--scwp-transition);
+}
+
+.scwp-cookie-item:focus {
+    outline: 2px solid var(--scwp-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(67, 131, 240, 0.1);
+}
+
+.scwp-cookie-item:hover {
+    border-color: var(--scwp-gray-400);
+    box-shadow: var(--scwp-shadow-md);
+}
+
+.scwp-cookie-name {
+    font-size: var(--scwp-text-xl);
+    font-weight: var(--scwp-font-semibold);
+    margin-bottom: var(--scwp-space-3);
+    color: var(--scwp-wp-text);
+    display: flex;
+    align-items: center;
+    gap: var(--scwp-space-3);
+}
+
+.scwp-cookie-name-text {
+    font-family: var(--scwp-font-family-mono);
+    background: var(--scwp-gray-100);
+    padding: var(--scwp-space-1) var(--scwp-space-2);
+    border-radius: var(--scwp-border-radius-sm);
+    font-size: 0.9em;
+}
+
+.scwp-cookie-essential-badge {
+    background: var(--scwp-success);
+    color: var(--scwp-white);
+    padding: var(--scwp-space-1) var(--scwp-space-2);
+    border-radius: var(--scwp-border-radius-xl);
+    font-size: var(--scwp-text-xs);
+    font-weight: var(--scwp-font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.scwp-cookie-description {
+    margin-bottom: var(--scwp-space-4);
+    line-height: var(--scwp-leading-relaxed);
+    color: var(--scwp-wp-text-light);
+}
+
+.scwp-cookie-duration {
+    margin-bottom: 0;
+    font-size: var(--scwp-text-base);
+}
+
+.scwp-duration-label {
+    font-weight: var(--scwp-font-semibold);
+    color: var(--scwp-wp-text);
+}
+
+.scwp-duration-value {
+    color: var(--scwp-wp-text-light);
+    font-family: var(--scwp-font-family-mono);
+    background: var(--scwp-gray-100);
+    padding: 2px 6px;
+    border-radius: var(--scwp-border-radius-sm);
+    margin-left: var(--scwp-space-1);
+}
+
+/* Card List Variants */
+.scwp-cookies-list--classic .scwp-cookie-item {
+    border-color: #333;
+    background: #fff;
+}
+
+.scwp-cookies-list--classic .scwp-cookie-item:hover {
+    border-color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scwp-cookies-list--classic .scwp-cookie-name {
+    color: #000;
+}
+
+.scwp-cookies-list--classic .scwp-cookie-name-text {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.scwp-cookies-list--blue .scwp-cookie-item {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+.scwp-cookies-list--blue .scwp-cookie-item:hover {
+    border-color: #135e96;
+    box-shadow: 0 4px 12px rgba(34, 113, 177, 0.2);
+}
+
+.scwp-cookies-list--blue .scwp-cookie-name {
+    color: #2271b1;
+}
+
+.scwp-cookies-list--blue .scwp-list-heading {
+    color: #2271b1;
+}
+
+.scwp-cookies-list--green .scwp-cookie-item {
+    border-color: var(--scwp-success);
+    background: #f0f9f0;
+}
+
+.scwp-cookies-list--green .scwp-cookie-item:hover {
+    border-color: #007a20;
+    box-shadow: 0 4px 12px rgba(0, 163, 42, 0.2);
+}
+
+.scwp-cookies-list--green .scwp-cookie-name {
+    color: var(--scwp-success);
+}
+
+.scwp-cookies-list--green .scwp-list-heading {
+    color: var(--scwp-success);
+}
+
+/* Settings Preview Cards (Admin Tables as Cards) */
+.scwp-table-preview-card {
+    background: var(--scwp-white);
+    border: var(--scwp-border-width) solid var(--scwp-wp-border);
+    border-radius: var(--scwp-border-radius);
+    padding: var(--scwp-space-5);
+    margin-bottom: var(--scwp-space-4);
+    box-shadow: var(--scwp-shadow-sm);
+}
+
+.scwp-table-preview-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--scwp-space-4);
+    padding-bottom: var(--scwp-space-3);
+    border-bottom: var(--scwp-border-width) solid var(--scwp-wp-border);
+}
+
+.scwp-table-preview-card__title {
+    font-size: var(--scwp-text-lg);
+    font-weight: var(--scwp-font-semibold);
+    color: var(--scwp-wp-text);
+    margin: 0;
+}
+
+.scwp-table-preview-card__meta {
+    font-size: var(--scwp-text-sm);
+    color: var(--scwp-wp-text-light);
+}
+
+.scwp-table-preview-card__sample {
+    background: var(--scwp-gray-50);
+    padding: var(--scwp-space-4);
+    border-radius: var(--scwp-border-radius-sm);
+    margin-bottom: var(--scwp-space-4);
+}
+
+.scwp-table-preview-card__actions {
+    display: flex;
+    gap: var(--scwp-space-3);
+    flex-wrap: wrap;
+}
+
+/* Responsive Design for Tables and Cards */
+@media (max-width: 768px) {
+    .scwp-cookies-table {
+        font-size: var(--scwp-text-sm);
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-radius: var(--scwp-border-radius);
+    }
+    
+    .scwp-cookies-table thead {
+        position: sticky;
+        left: 0;
+        background: var(--scwp-gray-50);
+    }
+    
+    .scwp-cookies-table th,
+    .scwp-cookies-table td {
+        min-width: 120px;
+        padding: 12px 8px;
+        text-align: left;
+        vertical-align: top;
+    }
+    
+    .scwp-cookie-item {
+        padding: var(--scwp-space-4);
+        margin-bottom: var(--scwp-space-5);
+    }
+    
+    .scwp-cookie-name {
+        font-size: var(--scwp-text-lg);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--scwp-space-2);
+    }
+}
+
+@media (max-width: 480px) {
+    .scwp-cookies-table {
+        display: block;
+        overflow-x: visible;
+        white-space: normal;
+    }
+    
+    .scwp-cookies-table thead {
+        position: static;
+        clip: rect(1px, 1px, 1px, 1px);
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+    }
+    
+    .scwp-cookies-table tbody tr {
+        display: block;
+        margin-bottom: var(--scwp-space-5);
+        padding: var(--scwp-space-4);
+        border: var(--scwp-border-width) solid var(--scwp-wp-border);
+        border-radius: var(--scwp-border-radius);
+        background: var(--scwp-white);
+    }
+    
+    .scwp-cookies-table tbody td {
+        display: block;
+        padding: var(--scwp-space-2) 0;
+        border: none;
+        min-width: auto;
+        position: relative;
+    }
+    
+    .scwp-cookies-table tbody td:before {
+        content: attr(data-label) ": ";
+        font-weight: var(--scwp-font-semibold);
+        color: var(--scwp-wp-text);
+        display: inline-block;
+        min-width: 120px;
+    }
+}
+
+/* === COOKIE & PRIVACY COMPONENTS === */
+/* Cookie Banner */
+.scwp-cookie-banner {
+    position: fixed;
+    width: 100%;
+    max-width: 450px;
+    background: var(--scwp-white);
+    color: var(--scwp-wp-text);
+    padding: var(--scwp-space-6);
+    border-radius: var(--scwp-border-radius);
+    box-shadow: var(--scwp-shadow-lg);
+    z-index: 9999;
+    border: var(--scwp-border-width) solid var(--scwp-wp-border);
+}
+
+.scwp-cookie-banner--top-left {
+    top: var(--scwp-space-4);
+    left: var(--scwp-space-4);
+}
+
+.scwp-cookie-banner--top-right {
+    top: var(--scwp-space-4);
+    right: var(--scwp-space-4);
+}
+
+.scwp-cookie-banner--bottom-left {
+    bottom: var(--scwp-space-4);
+    left: var(--scwp-space-4);
+}
+
+.scwp-cookie-banner--bottom-right {
+    bottom: var(--scwp-space-4);
+    right: var(--scwp-space-4);
+}
+
+.scwp-cookie-banner__message {
+    margin-bottom: var(--scwp-space-4);
+    font-size: var(--scwp-text-base);
+    line-height: var(--scwp-leading-normal);
+}
+
+.scwp-cookie-banner__actions {
+    display: flex;
+    gap: var(--scwp-space-3);
+    flex-wrap: wrap;
+}
+
+.scwp-cookie-banner .scwp-btn {
+    font-size: var(--scwp-text-sm);
+    padding: var(--scwp-space-2) var(--scwp-space-4);
+}
+
+/* Position Selector */
+.scwp-position-selector {
+    max-width: 300px;
+}
+
+.scwp-position-selector__label {
+    display: block;
+    margin-bottom: var(--scwp-space-4);
+    font-weight: var(--scwp-font-semibold);
+    color: var(--scwp-wp-text);
+}
+
+.scwp-position-selector__screen {
+    position: relative;
+    background: var(--scwp-gray-100);
+    border: 2px solid var(--scwp-gray-300);
+    border-radius: var(--scwp-border-radius);
+    padding: var(--scwp-space-4);
+    margin-bottom: var(--scwp-space-4);
+    aspect-ratio: 16 / 9;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--scwp-space-2);
+}
+
+.scwp-position-selector__screen::before {
+    content: 'Screen Preview';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--scwp-gray-400);
+    font-size: var(--scwp-text-sm);
+    font-weight: var(--scwp-font-medium);
+    z-index: 1;
+}
+
+.scwp-position-selector__option {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: var(--scwp-border-radius-sm);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: all var(--scwp-transition-fast);
+}
+
+.scwp-position-selector__option:hover {
+    border-color: var(--scwp-primary);
+    background: rgba(67, 131, 240, 0.1);
+}
+
+.scwp-position-selector__option.selected {
+    background: var(--scwp-primary);
+}
+
+.scwp-position-selector__option.selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: var(--scwp-white);
+    border-radius: var(--scwp-border-radius-sm);
+}
+
+.scwp-position-selector__buttons {
+    display: flex;
+    gap: var(--scwp-space-3);
+    flex-wrap: wrap;
+}
+
+.scwp-copy-default-btn {
+    background: var(--scwp-gray-100);
+    color: var(--scwp-wp-text);
+    border: var(--scwp-border-width) solid var(--scwp-gray-300);
+    padding: var(--scwp-space-2) var(--scwp-space-4);
+    border-radius: var(--scwp-border-radius-sm);
+    font-size: var(--scwp-text-sm);
+    cursor: pointer;
+    transition: all var(--scwp-transition-fast);
+}
+
+.scwp-copy-default-btn:hover {
+    background: var(--scwp-gray-200);
+    border-color: var(--scwp-gray-400);
+}
+
+.scwp-btn--reset {
+    background: var(--scwp-danger);
+    color: var(--scwp-white);
+    border-color: var(--scwp-danger);
+}
+
+.scwp-btn--reset:hover {
+    background: var(--scwp-danger-light);
+    border-color: var(--scwp-danger-light);
+    color: var(--scwp-white);
+}
+
+/* Responsive adjustments for cookie banner */
+@media (max-width: 768px) {
+    .scwp-cookie-banner {
+        max-width: calc(100% - 32px);
+        left: var(--scwp-space-4) !important;
+        right: var(--scwp-space-4) !important;
+        transform: none !important;
+    }
+    
+    .scwp-cookie-banner--top-left,
+    .scwp-cookie-banner--top-right {
+        top: var(--scwp-space-4);
+    }
+    
+    .scwp-cookie-banner--bottom-left,
+    .scwp-cookie-banner--bottom-right {
+        bottom: var(--scwp-space-4);
+    }
+    
+    .scwp-cookie-banner__actions {
+        justify-content: center;
+    }
+}

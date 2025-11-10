@@ -22,6 +22,11 @@
             font-size: 62.5%; /* 10px base for easier rem calculations */
         }
         
+        /* Ensure consistent font size calculation */
+        html {
+            font-size: 62.5% !important;
+        }
+        
         body {
             margin: 0;
             padding: 0;
@@ -212,7 +217,6 @@
 
             .component-demo-content {
                 padding: var(--scwp-space-4);
-                min-height: 150px;
             }
 
             .demo-hero {
@@ -414,26 +418,46 @@
             margin: 0 !important;
             border-radius: 0 !important;
             border: none !important;
+            min-width: 0;
+            width: 100%;
+        }
+        
+        .component-demo-content {
+            min-width: 0;
+            overflow: visible;
+        }
+        
+        .component-demo-content pre {
+            min-width: 0;
+            max-width: 100%;
         }
 
         /* Prism.js customizations for VSCode-like appearance */
         pre[class*="language-"] {
             margin: 0;
-            padding: var(--scwp-space-3) var(--scwp-space-3) var(--scwp-space-3) var(--scwp-space-5);
+            padding: 12px 12px 12px 20px;
             background: #1e1e1e !important;
             font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 11px !important;
             line-height: 1.5;
             overflow-x: auto;
             position: relative;
+            white-space: pre;
+            word-wrap: normal;
+            word-break: normal;
+            box-sizing: border-box;
         }
 
         code[class*="language-"] {
             font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 11px !important;
             color: #d4d4d4;
             background: none;
             text-shadow: none;
+            white-space: pre;
+            word-wrap: normal;
+            word-break: normal;
+            box-sizing: border-box;
         }
 
         /* Line numbers */
@@ -662,7 +686,7 @@
             background: var(--scwp-white);
             border: 1px solid var(--scwp-wp-border);
             border-radius: var(--scwp-border-radius-lg);
-            overflow: hidden;
+            overflow: visible;
             box-shadow: var(--scwp-shadow-sm);
         }
 
@@ -681,7 +705,6 @@
 
         .component-demo-content {
             padding: var(--scwp-space-6);
-            min-height: 200px;
             display: flex;
             flex-direction: column;
             gap: var(--scwp-space-4);
@@ -1135,6 +1158,172 @@
             }
         }
 
+        /* Floating notifications styles */
+        .scwp-notification--floating {
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 10000 !important;
+            min-width: 300px !important;
+            max-width: 400px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            margin-bottom: 0 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            display: block !important;
+        }
+
+        /* Notification animations */
+        @keyframes scwp-slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scwp-fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scwp-slideOutToRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Cookie Banner Component */
+        .scwp-cookie-banner {
+            position: fixed;
+            width: 100%;
+            max-width: 450px;
+            background: var(--scwp-white);
+            color: var(--scwp-wp-text);
+            padding: var(--scwp-space-6);
+            text-align: left;
+            z-index: 9999;
+            font-size: var(--scwp-text-sm);
+            border-radius: var(--scwp-border-radius);
+            border: var(--scwp-border-width) solid var(--scwp-wp-border);
+            box-shadow: var(--scwp-shadow-lg);
+        }
+
+        .scwp-cookie-banner.scwp-position--top-right {
+            top: 100px;
+            right: 50px;
+        }
+
+        .scwp-cookie-banner.scwp-position--top-left {
+            top: 100px;
+            left: 50px;
+        }
+
+        .scwp-cookie-banner.scwp-position--bottom-right {
+            bottom: 50px;
+            right: 50px;
+        }
+
+        .scwp-cookie-banner.scwp-position--bottom-left {
+            bottom: 50px;
+            left: 50px;
+        }
+
+        /* Cookie banner responsive */
+        @media (max-width: 768px) {
+            .scwp-cookie-banner {
+                padding: var(--scwp-space-4);
+                left: 50% !important;
+                transform: translateX(-50%);
+                max-width: 90%;
+                right: auto !important;
+                top: auto !important;
+                bottom: 20px !important;
+            }
+        }
+
+        .scwp-cookie-banner__message {
+            margin-bottom: var(--scwp-space-4);
+            line-height: 1.5;
+        }
+
+        .scwp-cookie-banner__buttons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--scwp-space-2);
+        }
+
+        .scwp-cookie-banner__info {
+            margin-top: var(--scwp-space-3);
+            text-align: center;
+        }
+
+        .scwp-cookie-banner__info a {
+            color: var(--scwp-primary);
+            text-decoration: none;
+        }
+
+        .scwp-cookie-banner__info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Position Selector Component */
+        .scwp-position-selector {
+            margin: var(--scwp-space-4) 0;
+        }
+
+        .scwp-position-selector__screen {
+            width: 300px;
+            height: 170px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 3px;
+            background: var(--scwp-gray-900);
+            border: 8px solid var(--scwp-gray-900);
+            border-radius: var(--scwp-border-radius-lg);
+            box-shadow: var(--scwp-shadow-lg);
+            margin: var(--scwp-space-3) 0;
+        }
+
+        .scwp-position-selector__option {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--scwp-gray-600);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            color: var(--scwp-white);
+            font-size: var(--scwp-text-xs);
+            border: 2px solid transparent;
+        }
+
+        .scwp-position-selector__option:hover {
+            background: var(--scwp-gray-500);
+        }
+
+        .scwp-position-selector__option.selected {
+            background: var(--scwp-primary);
+            border-color: var(--scwp-primary-light);
+        }
+
     </style>
 </head>
 <body>
@@ -1151,6 +1340,9 @@
                 <a href="#components">Components</a>
                 <a href="#utilities">Utilities</a>
                 <a href="#emojis">Emojis</a>
+                <a href="#cookie-components">Cookies</a>
+                <a href="#ccm-tables">Tables & Cards</a>
+                <a href="#ccm-variants">CCM Variants</a>
                 <a href="#examples">Examples</a>
             </nav>
 
@@ -1168,6 +1360,9 @@
                     <a href="#components" onclick="closeMobileMenu()">Components</a>
                     <a href="#utilities" onclick="closeMobileMenu()">Utilities</a>
                     <a href="#emojis" onclick="closeMobileMenu()">Emojis</a>
+                    <a href="#cookie-components" onclick="closeMobileMenu()">Cookies</a>
+                    <a href="#ccm-tables" onclick="closeMobileMenu()">Tables & Cards</a>
+                    <a href="#ccm-variants" onclick="closeMobileMenu()">CCM Variants</a>
                     <a href="#examples" onclick="closeMobileMenu()">Examples</a>
                 </nav>
             </div>
@@ -1754,9 +1949,504 @@ const leftCard = SCWPAdminUI.components.createCard({
             </div>
         </section>
 
+        <!-- CCM Tables & Cards Components -->
+        <section id="ccm-tables" class="demo-section">
+            <h2>📊 CCM Tables & Cards</h2>
+            <p>Componentes de tabelas e cards do CCM para exibição de informações de cookies e políticas.</p>
+            
+            <h3>Cookie Data Tables</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Tabelas de Cookies com Estilos Variados</h4>
+                </div>
+                <div class="component-demo-content">
+                    <!-- Table Style Selector -->
+                    <div style="margin-bottom: 20px;">
+                        <label class="scwp-label"><strong>Escolha o estilo da tabela:</strong></label>
+                        <select class="scwp-input" onchange="changeTableStyle(this.value)" style="max-width: 300px;">
+                            <option value="none">None (Basic)</option>
+                            <option value="classic">Classic (Black/White)</option>
+                            <option value="blue" selected>Blue Corporate</option>
+                            <option value="green">Green Nature</option>
+                        </select>
+                    </div>
+
+                    <!-- Sample Cookie Table -->
+                    <div id="cookie-table-container">
+                        <h2 class="scwp-table-heading">Cookies Utilizadas neste Website</h2>
+                        <p class="scwp-table-caption">
+                            Abaixo encontra informações sobre cada cookie que utilizamos, incluindo a sua finalidade e por quanto tempo é armazenada.
+                        </p>
+                        <table class="scwp-cookies-table scwp-cookies-table--blue" id="cookies-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome da Cookie</th>
+                                    <th scope="col">Descrição e Finalidade</th>
+                                    <th scope="col">Período de Armazenamento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Nome da Cookie">
+                                        <span class="scwp-cookie-name-text">cookie_consent</span>
+                                    </td>
+                                    <td data-label="Descrição e Finalidade">
+                                        Utilizamos esta cookie para recordar as suas preferências sobre cookies. 
+                                        Isto ajuda-nos a personalizar a sua experiência e a respeitar as suas escolhas de privacidade.
+                                    </td>
+                                    <td data-label="Período de Armazenamento">
+                                        <span class="scwp-duration-value">1 ano</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Nome da Cookie">
+                                        <span class="scwp-cookie-name-text">_ga</span>
+                                    </td>
+                                    <td data-label="Descrição e Finalidade">
+                                        Esta cookie é instalada pelo Google Analytics. A cookie é usada para calcular 
+                                        dados de visitantes, sessões, campanhas e rastrear o uso do site.
+                                    </td>
+                                    <td data-label="Período de Armazenamento">
+                                        <span class="scwp-duration-value">2 anos</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Nome da Cookie">
+                                        <span class="scwp-cookie-name-text">_gid</span>
+                                    </td>
+                                    <td data-label="Descrição e Finalidade">
+                                        Esta cookie é instalada pelo Google Analytics. A cookie é usada para armazenar 
+                                        informações sobre como os visitantes usam um website.
+                                    </td>
+                                    <td data-label="Período de Armazenamento">
+                                        <span class="scwp-duration-value">24 horas</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Nome da Cookie">
+                                        <span class="scwp-cookie-name-text">wordpress_sec_*</span>
+                                    </td>
+                                    <td data-label="Descrição e Finalidade">
+                                        Cookies de segurança do WordPress utilizadas para autenticação e autorização 
+                                        de utilizadores na área administrativa.
+                                    </td>
+                                    <td data-label="Período de Armazenamento">
+                                        <span class="scwp-duration-value">Sessão</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cookie Policy Cards</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Cards como Alternativa às Tabelas</h4>
+                </div>
+                <div class="component-demo-content">
+                    <!-- Card Style Selector -->
+                    <div style="margin-bottom: 20px;">
+                        <label class="scwp-label"><strong>Escolha o estilo dos cards:</strong></label>
+                        <select class="scwp-input" onchange="changeCardStyle(this.value)" style="max-width: 300px;">
+                            <option value="none">None (Basic)</option>
+                            <option value="classic">Classic (Black/White)</option>
+                            <option value="blue">Blue Corporate</option>
+                            <option value="green" selected>Green Nature</option>
+                        </select>
+                    </div>
+
+                    <!-- Sample Cookie Cards -->
+                    <div class="scwp-cookies-list scwp-cookies-list--green" id="cookies-cards">
+                        <h2 class="scwp-list-heading">Cookies Utilizadas neste Website</h2>
+                        <p class="scwp-list-description">
+                            Abaixo encontra informações sobre cada cookie que utilizamos, incluindo a sua finalidade e por quanto tempo é armazenada.
+                        </p>
+                        <dl class="scwp-cookies-definition-list">
+                            <div class="scwp-cookie-item" tabindex="0">
+                                <dt class="scwp-cookie-name">
+                                    <span class="scwp-cookie-name-text">cookie_consent</span>
+                                    <span class="scwp-cookie-essential-badge">Essencial</span>
+                                </dt>
+                                <dd class="scwp-cookie-description">
+                                    Utilizamos esta cookie para recordar as suas preferências sobre cookies. 
+                                    Isto ajuda-nos a personalizar a sua experiência e a respeitar as suas escolhas de privacidade.
+                                </dd>
+                                <dd class="scwp-cookie-duration">
+                                    <span class="scwp-duration-label">Período de armazenamento:</span>
+                                    <span class="scwp-duration-value">1 ano</span>
+                                </dd>
+                            </div>
+
+                            <div class="scwp-cookie-item" tabindex="0">
+                                <dt class="scwp-cookie-name">
+                                    <span class="scwp-cookie-name-text">_ga</span>
+                                </dt>
+                                <dd class="scwp-cookie-description">
+                                    Esta cookie é instalada pelo Google Analytics. A cookie é usada para calcular 
+                                    dados de visitantes, sessões, campanhas e rastrear o uso do site.
+                                </dd>
+                                <dd class="scwp-cookie-duration">
+                                    <span class="scwp-duration-label">Período de armazenamento:</span>
+                                    <span class="scwp-duration-value">2 anos</span>
+                                </dd>
+                            </div>
+
+                            <div class="scwp-cookie-item" tabindex="0">
+                                <dt class="scwp-cookie-name">
+                                    <span class="scwp-cookie-name-text">_gid</span>
+                                </dt>
+                                <dd class="scwp-cookie-description">
+                                    Esta cookie é instalada pelo Google Analytics. A cookie é usada para armazenar 
+                                    informações sobre como os visitantes usam um website.
+                                </dd>
+                                <dd class="scwp-cookie-duration">
+                                    <span class="scwp-duration-label">Período de armazenamento:</span>
+                                    <span class="scwp-duration-value">24 horas</span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Admin Settings Preview Cards</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Cards de Preview para Configurações Admin</h4>
+                </div>
+                <div class="component-demo-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+                        <div class="scwp-table-preview-card">
+                            <div class="scwp-table-preview-card__header">
+                                <h3 class="scwp-table-preview-card__title">📊 Table Style: Blue Corporate</h3>
+                                <span class="scwp-table-preview-card__meta">Selected</span>
+                            </div>
+                            <div class="scwp-table-preview-card__sample">
+                                <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: #2271b1; color: white;">
+                                            <th style="padding: 4px 8px; text-align: left;">Cookie</th>
+                                            <th style="padding: 4px 8px; text-align: left;">Duration</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background: #f0f6fc;">
+                                            <td style="padding: 4px 8px;">consent</td>
+                                            <td style="padding: 4px 8px;">1 year</td>
+                                        </tr>
+                                        <tr style="background: white;">
+                                            <td style="padding: 4px 8px;">analytics</td>
+                                            <td style="padding: 4px 8px;">2 years</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="scwp-table-preview-card__actions">
+                                <button class="scwp-btn scwp-btn--ccm-primary scwp-btn--small">Select Style</button>
+                                <button class="scwp-btn scwp-btn--secondary scwp-btn--small">Preview</button>
+                            </div>
+                        </div>
+
+                        <div class="scwp-table-preview-card">
+                            <div class="scwp-table-preview-card__header">
+                                <h3 class="scwp-table-preview-card__title">🎨 Card Style: Green Nature</h3>
+                                <span class="scwp-table-preview-card__meta">Alternative</span>
+                            </div>
+                            <div class="scwp-table-preview-card__sample">
+                                <div style="border: 1px solid #00a32a; background: #f0f9f0; padding: 8px; border-radius: 4px; margin-bottom: 8px;">
+                                    <strong style="color: #00a32a;">consent</strong>
+                                    <div style="font-size: 10px; color: #666;">Essential cookie • 1 year</div>
+                                </div>
+                                <div style="border: 1px solid #00a32a; background: #f0f9f0; padding: 8px; border-radius: 4px;">
+                                    <strong style="color: #00a32a;">analytics</strong>
+                                    <div style="font-size: 10px; color: #666;">Analytics cookie • 2 years</div>
+                                </div>
+                            </div>
+                            <div class="scwp-table-preview-card__actions">
+                                <button class="scwp-btn scwp-btn--ccm-primary scwp-btn--small">Select Style</button>
+                                <button class="scwp-btn scwp-btn--secondary scwp-btn--small">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">HTML</span>
+                        CCM Tables & Cards Usage
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-html">&lt;!-- Cookie Data Table --&gt;
+&lt;table class="scwp-cookies-table scwp-cookies-table--blue"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Nome da Cookie&lt;/th&gt;
+            &lt;th scope="col"&gt;Descrição e Finalidade&lt;/th&gt;
+            &lt;th scope="col"&gt;Período de Armazenamento&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td data-label="Nome da Cookie"&gt;cookie_consent&lt;/td&gt;
+            &lt;td data-label="Descrição"&gt;Cookie de consentimento&lt;/td&gt;
+            &lt;td data-label="Duração"&gt;1 ano&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Cookie Policy Cards --&gt;
+&lt;div class="scwp-cookies-list scwp-cookies-list--green"&gt;
+    &lt;h2 class="scwp-list-heading"&gt;Cookies do Website&lt;/h2&gt;
+    &lt;dl class="scwp-cookies-definition-list"&gt;
+        &lt;div class="scwp-cookie-item"&gt;
+            &lt;dt class="scwp-cookie-name"&gt;
+                &lt;span class="scwp-cookie-name-text"&gt;cookie_consent&lt;/span&gt;
+                &lt;span class="scwp-cookie-essential-badge"&gt;Essencial&lt;/span&gt;
+            &lt;/dt&gt;
+            &lt;dd class="scwp-cookie-description"&gt;Descrição da cookie&lt;/dd&gt;
+            &lt;dd class="scwp-cookie-duration"&gt;
+                &lt;span class="scwp-duration-label"&gt;Duração:&lt;/span&gt;
+                &lt;span class="scwp-duration-value"&gt;1 ano&lt;/span&gt;
+            &lt;/dd&gt;
+        &lt;/div&gt;
+    &lt;/dl&gt;
+&lt;/div&gt;
+
+&lt;!-- Settings Preview Card --&gt;
+&lt;div class="scwp-table-preview-card"&gt;
+    &lt;div class="scwp-table-preview-card__header"&gt;
+        &lt;h3 class="scwp-table-preview-card__title"&gt;Table Style Preview&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-table-preview-card__sample"&gt;
+        &lt;!-- Preview content --&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-table-preview-card__actions"&gt;
+        &lt;button class="scwp-btn scwp-btn--primary"&gt;Select&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- CCM Variant Components (Conflicted Elements) -->
+        <section id="ccm-variants" class="demo-section">
+            <h2>⚡ CCM Variant Components</h2>
+            <p>Variantes de componentes baseadas no estilo original do CCM plugin para resolver conflitos identificados.</p>
+            
+            <h3>CCM-Style Buttons</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Botões estilo CCM vs SCWP</h4>
+                </div>
+                <div class="component-demo-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h5><strong>Estilo SCWP (Original)</strong></h5>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button class="scwp-btn scwp-btn--primary">Primary SCWP</button>
+                                <button class="scwp-btn scwp-btn--secondary">Secondary SCWP</button>
+                                <button class="scwp-btn scwp-btn--danger">Danger SCWP</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h5><strong>Estilo CCM (Variantes)</strong></h5>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button class="scwp-btn scwp-btn--ccm-primary">Primary CCM</button>
+                                <button class="scwp-btn scwp-btn--ccm-copy">Copy Default CCM</button>
+                                <button class="scwp-btn scwp-btn--ccm-reset">Reset CCM</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p><em>Os botões CCM usam cores fixas (#2271b1) e padding específico (12px 24px), enquanto os SCWP usam CSS custom properties e são mais flexíveis.</em></p>
+                </div>
+            </div>
+
+            <h3>CCM-Style Form Fields</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Form Fields - SCWP vs CCM</h4>
+                </div>
+                <div class="component-demo-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h5><strong>Estilo SCWP</strong></h5>
+                            <div class="scwp-form-group">
+                                <label class="scwp-label">Plugin Name</label>
+                                <input type="text" class="scwp-input" placeholder="SCWP style input" value="SCWP Input">
+                            </div>
+                            <div class="scwp-form-group">
+                                <label class="scwp-label">Description</label>
+                                <textarea class="scwp-input scwp-textarea" placeholder="SCWP textarea">SCWP Textarea com estilo padrão</textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <h5><strong>Estilo CCM</strong></h5>
+                            <div class="scwp-form-group">
+                                <label class="scwp-label--ccm">Plugin Name</label>
+                                <input type="text" class="scwp-input--ccm" placeholder="CCM style input" value="CCM Input">
+                                <span class="scwp-label--ccm-description">Enhanced focus states with blue border</span>
+                            </div>
+                            <div class="scwp-form-group">
+                                <label class="scwp-label--ccm">Description</label>
+                                <textarea class="scwp-textarea--ccm" placeholder="CCM textarea">CCM Textarea com focus state aprimorado</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>CCM-Style Cards/Containers</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Containers - SCWP vs CCM</h4>
+                </div>
+                <div class="component-demo-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div class="scwp-card scwp-card--primary">
+                            <div class="scwp-card__header">
+                                <h3 class="scwp-card__title">SCWP Card</h3>
+                            </div>
+                            <div class="scwp-card__content">
+                                <p>Card padrão SCWP com CSS custom properties, border colorido e hover effects.</p>
+                            </div>
+                            <div class="scwp-card__actions">
+                                <button class="scwp-btn scwp-btn--primary">Action</button>
+                            </div>
+                        </div>
+                        
+                        <div class="scwp-card--ccm">
+                            <h2 class="scwp-card__title">CCM Container</h2>
+                            <h3 class="scwp-card__subtitle">Settings Section</h3>
+                            <div class="scwp-form-container--ccm">
+                                <div class="scwp-form-group">
+                                    <label class="scwp-label--ccm">API Key</label>
+                                    <input type="text" class="scwp-input--ccm scwp-input--ccm-api" placeholder="Enter API key">
+                                </div>
+                                <button class="scwp-btn scwp-btn--ccm-primary">Save Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>CCM-Style Position Selector</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Position Selector - SCWP vs CCM</h4>
+                </div>
+                <div class="component-demo-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h5><strong>Estilo SCWP</strong></h5>
+                            <div class="scwp-position-selector">
+                                <label class="scwp-position-selector__label">Banner Position</label>
+                                <div class="scwp-position-selector__screen">
+                                    <div class="scwp-position-selector__option" data-position="top-left"></div>
+                                    <div class="scwp-position-selector__option selected" data-position="top-right"></div>
+                                    <div class="scwp-position-selector__option" data-position="bottom-left"></div>
+                                    <div class="scwp-position-selector__option" data-position="bottom-right"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5><strong>Estilo CCM</strong></h5>
+                            <div class="scwp-position-selector scwp-position-selector--ccm">
+                                <label class="scwp-position-selector__label">Banner Position</label>
+                                <div class="scwp-position-selector__screen">
+                                    <div class="scwp-position-selector__option" data-position="top-left"></div>
+                                    <div class="scwp-position-selector__option selected" data-position="top-right"></div>
+                                    <div class="scwp-position-selector__option" data-position="bottom-left"></div>
+                                    <div class="scwp-position-selector__option" data-position="bottom-right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p><em>O estilo CCM usa fundo escuro (#1d2327) e visual mais contrastante, enquanto o SCWP é mais suave.</em></p>
+                </div>
+            </div>
+
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">HTML</span>
+                        CCM Variants Usage
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-html">&lt;!-- CCM Style Buttons --&gt;
+&lt;button class="scwp-btn scwp-btn--ccm-primary"&gt;CCM Primary&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--ccm-copy"&gt;Copy Default&lt;/button&gt;
+&lt;button class="scwp-btn scwp-btn--ccm-reset"&gt;Reset&lt;/button&gt;
+
+&lt;!-- CCM Style Form Fields --&gt;
+&lt;label class="scwp-label--ccm"&gt;Field Label&lt;/label&gt;
+&lt;input type="text" class="scwp-input--ccm"&gt;
+&lt;span class="scwp-label--ccm-description"&gt;Helper text&lt;/span&gt;
+
+&lt;!-- CCM Style Container --&gt;
+&lt;div class="scwp-card--ccm"&gt;
+    &lt;h2 class="scwp-card__title"&gt;Settings&lt;/h2&gt;
+    &lt;h3 class="scwp-card__subtitle"&gt;Configuration&lt;/h3&gt;
+    &lt;div class="scwp-form-container--ccm"&gt;
+        &lt;!-- Form content --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- CCM Style Position Selector --&gt;
+&lt;div class="scwp-position-selector scwp-position-selector--ccm"&gt;
+    &lt;!-- Position options --&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+
         <!-- WordPress Examples -->
         <section id="examples" class="demo-section">
             <h2>🔌 WordPress Integration Examples</h2>
+            
+            <h3>Live Example Pages</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">⚙️</span>
+                    <h3>CCM Plugin Settings</h3>
+                    <p>Página completa de configurações usando componentes CCM variants em contexto WordPress admin.</p>
+                    <a href="ccm-plugin-settings.php" class="scwp-btn scwp-btn--primary" target="_blank">
+                        Ver Página PHP
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Admin Dashboard</h3>
+                    <p>Dashboard administrativo completo demonstrando a integração de componentes SCWP e CCM.</p>
+                    <a href="ccm-admin-dashboard.html" class="scwp-btn scwp-btn--primary" target="_blank">
+                        Ver Dashboard
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Components Showcase</h3>
+                    <p>Comparação visual lado a lado de todos os componentes SCWP vs CCM variants.</p>
+                    <a href="ccm-components-showcase.html" class="scwp-btn scwp-btn--primary" target="_blank">
+                        Ver Comparação
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🧪</span>
+                    <h3>Test Components</h3>
+                    <p>Página de teste standalone para validar componentes CCM em isolamento.</p>
+                    <a href="test-ccm-components.html" class="scwp-btn scwp-btn--primary" target="_blank">
+                        Ver Testes
+                    </a>
+                </div>
+            </div>
+
+            <h3>Code Integration Examples</h3>
             
             <h3>Simple Plugin Dashboard</h3>
             <div class="demo-code-container">
@@ -2165,6 +2855,115 @@ function show_admin_notice() {
                     <span class="copy-success">✅ Emoji copiado!</span>
                 </div>
             </div>
+        </section>
+
+        <!-- Cookie & Privacy Components -->
+        <section id="cookie-components" class="demo-section">
+            <h2>🍪 Cookie & Privacy Components</h2>
+            <p>Componentes especializados para gestão de cookies e consentimentos, inspirados no CCM plugin.</p>
+            
+            <h3>Cookie Consent Banner</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Cookie Banner</h4>
+                </div>
+                <div class="component-demo-content">
+                    <p>Banner de consentimento de cookies com posicionamento dinâmico e responsivo.</p>
+                    
+                    <!-- Position Selector -->
+                    <div class="scwp-position-selector">
+                        <label class="scwp-label"><strong>Escolha a posição do banner:</strong></label>
+                        <div class="scwp-position-selector__screen">
+                            <div class="scwp-position-selector__option" data-position="top-left">
+                                Top Left
+                            </div>
+                            <div class="scwp-position-selector__option selected" data-position="top-right">
+                                Top Right
+                            </div>
+                            <div class="scwp-position-selector__option" data-position="bottom-left">
+                                Bottom Left
+                            </div>
+                            <div class="scwp-position-selector__option" data-position="bottom-right">
+                                Bottom Right
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="scwp-btn scwp-btn--primary" onclick="showCookieBannerDemo()">
+                        🍪 Mostrar Banner
+                    </button>
+                </div>
+            </div>
+
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">HTML</span>
+                        Cookie Banner Usage
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-html">&lt;div class="scwp-cookie-banner scwp-position--top-right"&gt;
+    &lt;div class="scwp-cookie-banner__message"&gt;
+        Usamos cookies para garantir a melhor experiência. 
+        Aceita todos os cookies ou personaliza as tuas preferências.
+    &lt;/div&gt;
+    &lt;div class="scwp-cookie-banner__buttons"&gt;
+        &lt;button class="scwp-btn scwp-btn--primary"&gt;Aceitar Todos&lt;/button&gt;
+        &lt;button class="scwp-btn scwp-btn--secondary"&gt;Apenas Necessários&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="scwp-cookie-banner__info"&gt;
+        &lt;a href="/privacy-policy"&gt;Política de Privacidade&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Position Selector</h3>
+            <div class="component-demo">
+                <div class="component-demo-header">
+                    <h4>Interactive Position Selector</h4>
+                </div>
+                <div class="component-demo-content">
+                    <p>Selector visual para escolher posicionamento de elementos (banners, popups, etc.)</p>
+                    
+                    <div class="scwp-position-selector">
+                        <div class="scwp-position-selector__screen">
+                            <div class="scwp-position-selector__option" data-pos="tl">TL</div>
+                            <div class="scwp-position-selector__option selected" data-pos="tr">TR</div>
+                            <div class="scwp-position-selector__option" data-pos="bl">BL</div>
+                            <div class="scwp-position-selector__option" data-pos="br">BR</div>
+                        </div>
+                        <p class="scwp-mt-2"><strong>Posição selecionada:</strong> <span id="selected-position">Top Right</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-code-container">
+                <div class="demo-code-header">
+                    <div class="demo-code-title">
+                        <span class="demo-code-lang">HTML</span>
+                        Position Selector Usage
+                    </div>
+                    <button class="demo-code-copy" onclick="copyDemoCode(this)">Copy</button>
+                </div>
+                <pre class="demo-code line-numbers"><code class="language-html">&lt;div class="scwp-position-selector"&gt;
+    &lt;div class="scwp-position-selector__screen"&gt;
+        &lt;div class="scwp-position-selector__option" data-position="top-left"&gt;
+            Top Left
+        &lt;/div&gt;
+        &lt;div class="scwp-position-selector__option selected" data-position="top-right"&gt;
+            Top Right
+        &lt;/div&gt;
+        &lt;div class="scwp-position-selector__option" data-position="bottom-left"&gt;
+            Bottom Left
+        &lt;/div&gt;
+        &lt;div class="scwp-position-selector__option" data-position="bottom-right"&gt;
+            Bottom Right
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
         </section>
 
         <!-- Customization -->
@@ -2616,6 +3415,164 @@ function show_admin_notice() {
                 }
             });
         });
+
+        // Cookie Banner Demo Functions
+        function showCookieBannerDemo() {
+            // Remove any existing demo banner
+            const existingBanner = document.querySelector('.scwp-cookie-banner-demo');
+            if (existingBanner) {
+                existingBanner.remove();
+            }
+            
+            // Get selected position
+            const selectedOption = document.querySelector('.scwp-position-selector__option.selected');
+            const position = selectedOption ? selectedOption.getAttribute('data-position') : 'top-right';
+            
+            // Create demo banner
+            const banner = document.createElement('div');
+            banner.className = `scwp-cookie-banner scwp-position--${position} scwp-cookie-banner-demo`;
+            banner.innerHTML = `
+                <div class="scwp-cookie-banner__message">
+                    🍪 <strong>Demo Cookie Banner!</strong><br>
+                    Usamos cookies para garantir a melhor experiência. 
+                    Aceita todos os cookies ou personaliza as tuas preferências.
+                </div>
+                <div class="scwp-cookie-banner__buttons">
+                    <button class="scwp-btn scwp-btn--primary" onclick="acceptCookiesDemo()">Aceitar Todos</button>
+                    <button class="scwp-btn scwp-btn--secondary" onclick="acceptNecessaryDemo()">Apenas Necessários</button>
+                </div>
+                <div class="scwp-cookie-banner__info">
+                    <a href="#" onclick="closeCookieBannerDemo(); return false;">Fechar Demo</a>
+                </div>
+            `;
+            
+            document.body.appendChild(banner);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (banner && banner.parentNode) {
+                    banner.remove();
+                }
+            }, 10000);
+        }
+        
+        function acceptCookiesDemo() {
+            SCWPAdminUI.utils.showNotification(
+                '✅ <strong>Cookies Aceites!</strong> Todos os cookies foram aceites.',
+                'success',
+                3000,
+                { floating: true }
+            );
+            closeCookieBannerDemo();
+        }
+        
+        function acceptNecessaryDemo() {
+            SCWPAdminUI.utils.showNotification(
+                'ℹ️ <strong>Cookies Necessários!</strong> Apenas cookies essenciais foram aceites.',
+                'info',
+                3000,
+                { floating: true }
+            );
+            closeCookieBannerDemo();
+        }
+        
+        function closeCookieBannerDemo() {
+            const banner = document.querySelector('.scwp-cookie-banner-demo');
+            if (banner) {
+                banner.remove();
+            }
+        }
+
+        // Position Selector Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize position selectors
+            const positionOptions = document.querySelectorAll('.scwp-position-selector__option');
+            
+            positionOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from siblings
+                    const siblings = this.parentNode.querySelectorAll('.scwp-position-selector__option');
+                    siblings.forEach(sibling => sibling.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update position display if element exists
+                    const positionDisplay = document.getElementById('selected-position');
+                    if (positionDisplay) {
+                        const positionMap = {
+                            'tl': 'Top Left',
+                            'tr': 'Top Right', 
+                            'bl': 'Bottom Left',
+                            'br': 'Bottom Right',
+                            'top-left': 'Top Left',
+                            'top-right': 'Top Right',
+                            'bottom-left': 'Bottom Left',
+                            'bottom-right': 'Bottom Right'
+                        };
+                        
+                        const dataPos = this.getAttribute('data-pos') || this.getAttribute('data-position');
+                        positionDisplay.textContent = positionMap[dataPos] || dataPos;
+                    }
+                });
+            });
+        });
+
+        // CCM Tables & Cards Functionality
+        function changeTableStyle(style) {
+            const table = document.getElementById('cookies-table');
+            if (table) {
+                // Remove all style classes
+                table.className = table.className.replace(/scwp-cookies-table--\w+/g, '');
+                // Add new style class
+                if (style !== 'none') {
+                    table.classList.add('scwp-cookies-table--' + style);
+                }
+            }
+        }
+
+        function changeCardStyle(style) {
+            const cardContainer = document.getElementById('cookies-cards');
+            if (cardContainer) {
+                // Remove all style classes
+                cardContainer.className = cardContainer.className.replace(/scwp-cookies-list--\w+/g, '');
+                // Add new style class
+                if (style !== 'none') {
+                    cardContainer.classList.add('scwp-cookies-list--' + style);
+                }
+            }
+        }
+
+        // Demo functionality for table and card interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make cookie items interactive
+            const cookieItems = document.querySelectorAll('.scwp-cookie-item');
+            cookieItems.forEach(item => {
+                item.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 100);
+                    }
+                });
+            });
+
+            // Add hover effects to table rows
+            const tableRows = document.querySelectorAll('.scwp-cookies-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(67, 131, 240, 0.1)';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+
+            console.log('🍪 CCM Tables & Cards components loaded and interactive');
+        });
+
     </script>
 </body>
 </html>

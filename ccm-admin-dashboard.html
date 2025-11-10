@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCM Admin Dashboard</title>
+    <link rel="stylesheet" href="css/scwp-admin-ui.css">
+    <style>
+        .wp-admin-bar {
+            background: #23282d;
+            height: 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 13px;
+        }
+        
+        .admin-menu {
+            background: #23282d;
+            width: 160px;
+            position: fixed;
+            top: 32px;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        
+        .admin-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .admin-menu li {
+            border-bottom: 1px solid #1d2327;
+        }
+        
+        .admin-menu a {
+            display: block;
+            color: #a0a5aa;
+            padding: 8px 12px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        .admin-menu a:hover {
+            background: #1d2327;
+            color: #00b9eb;
+        }
+        
+        .admin-menu .current {
+            background: #0073aa;
+            color: white;
+        }
+        
+        .main-content {
+            margin-left: 160px;
+            margin-top: 32px;
+            padding: 20px;
+        }
+        
+        .notice {
+            background: #fff;
+            border: 1px solid #c3c4c7;
+            border-left-width: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,.04);
+            margin: 5px 15px 2px;
+            padding: 1px 12px;
+        }
+        
+        .notice-success {
+            border-left-color: #00a32a;
+        }
+        
+        .notice-warning {
+            border-left-color: #dba617;
+        }
+        
+        .notice-error {
+            border-left-color: #d63638;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-menu {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .admin-menu.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block !important;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- WordPress Admin Bar -->
+    <div class="wp-admin-bar">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        <span style="margin-right: auto;">🍪 Cookie Consent Manager - Admin Dashboard</span>
+        <span style="font-size: 11px;">WordPress 6.4 | User: Admin</span>
+    </div>
+
+    <!-- WordPress Admin Menu -->
+    <div class="admin-menu" id="admin-menu">
+        <ul>
+            <li><a href="#dashboard">📊 Dashboard</a></li>
+            <li><a href="#" class="current">🍪 Cookie Manager</a></li>
+            <li><a href="#analytics">📈 Analytics</a></li>
+            <li><a href="#reports">📋 Reports</a></li>
+            <li><a href="#settings">⚙️ Settings</a></li>
+            <li><a href="#users">👥 Users</a></li>
+            <li><a href="#plugins">🔌 Plugins</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- WordPress-style notices -->
+        <div class="notice notice-success">
+            <p><strong>Success!</strong> Cookie banner settings have been updated.</p>
+        </div>
+
+        <div class="scwp-wrap--ccm">
+            <!-- Header -->
+            <div class="scwp-logo-header--ccm">
+                <h1 style="margin: 0; font-size: 28px; color: var(--scwp-primary);">🍪 Cookie Consent Manager</h1>
+                <p style="margin: 5px 0 0 0; color: var(--scwp-wp-text-light);">Manage cookie consent, privacy settings and compliance</p>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="stats-grid">
+                <div class="scwp-card">
+                    <div class="scwp-card__content">
+                        <span class="scwp-card__count" style="color: var(--scwp-success);">2,847</span>
+                        <p class="scwp-card__description">Consent Given</p>
+                    </div>
+                </div>
+                <div class="scwp-card">
+                    <div class="scwp-card__content">
+                        <span class="scwp-card__count" style="color: var(--scwp-warning);">423</span>
+                        <p class="scwp-card__description">Consent Rejected</p>
+                    </div>
+                </div>
+                <div class="scwp-card">
+                    <div class="scwp-card__content">
+                        <span class="scwp-card__count" style="color: var(--scwp-info);">87%</span>
+                        <p class="scwp-card__description">Acceptance Rate</p>
+                    </div>
+                </div>
+                <div class="scwp-card">
+                    <div class="scwp-card__content">
+                        <span class="scwp-card__count" style="color: var(--scwp-primary);">156</span>
+                        <p class="scwp-card__description">Today's Visitors</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions CCM Style -->
+            <div class="scwp-card--ccm">
+                <h2 class="scwp-card__title">Quick Actions</h2>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
+                    <button class="scwp-btn scwp-btn--ccm-primary" onclick="showQuickPreview()">
+                        👁️ Preview Banner
+                    </button>
+                    <button class="scwp-btn scwp-btn--ccm-copy" onclick="exportData()">
+                        📤 Export Data
+                    </button>
+                    <button class="scwp-btn scwp-btn--primary">
+                        📊 View Analytics
+                    </button>
+                    <button class="scwp-btn scwp-btn--ccm-reset" onclick="clearAllData()">
+                        🗑️ Clear All Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banner Configuration CCM Style -->
+            <div class="scwp-card--ccm">
+                <h2 class="scwp-card__title">Banner Configuration</h2>
+                
+                <h3 class="scwp-card__subtitle">Message Settings</h3>
+                <div class="scwp-form-container--ccm">
+                    <div>
+                        <label class="scwp-label--ccm">Banner Message</label>
+                        <textarea class="scwp-textarea--ccm" placeholder="Enter your cookie consent message...">Utilizamos cookies para melhorar a sua experiência de navegação e para fins analíticos. Ao continuar a navegar, está a consentir a utilização de cookies.</textarea>
+                        <span class="scwp-label--ccm-description">This message appears when users first visit your website</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label class="scwp-label--ccm">Accept Button Text</label>
+                            <input type="text" class="scwp-input--ccm" value="Aceitar Todos">
+                        </div>
+                        <div>
+                            <label class="scwp-label--ccm">Reject Button Text</label>
+                            <input type="text" class="scwp-input--ccm" value="Apenas Necessários">
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="scwp-card__subtitle">Position & Style</h3>
+                <div class="scwp-form-container--ccm">
+                    <div>
+                        <label class="scwp-label--ccm">Banner Position</label>
+                        <div class="scwp-position-selector scwp-position-selector--ccm">
+                            <div class="scwp-position-selector__screen">
+                                <div class="scwp-position-selector__option" data-position="top-left" onclick="selectPosition(this)"></div>
+                                <div class="scwp-position-selector__option" data-position="top-right" onclick="selectPosition(this)"></div>
+                                <div class="scwp-position-selector__option selected" data-position="bottom-left" onclick="selectPosition(this)"></div>
+                                <div class="scwp-position-selector__option" data-position="bottom-right" onclick="selectPosition(this)"></div>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 13px; color: #646970;">
+                                <strong>Selected:</strong> <span id="selected-position">Bottom Left</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="scwp-btn scwp-btn--ccm-primary">💾 Save Configuration</button>
+                    <button type="button" class="scwp-btn scwp-btn--ccm-copy" onclick="copyConfiguration()">📋 Copy Settings</button>
+                </div>
+            </div>
+
+            <!-- Compliance Dashboard -->
+            <div class="scwp-card--ccm">
+                <h2 class="scwp-card__title">GDPR Compliance Dashboard</h2>
+                
+                <h3 class="scwp-card__subtitle">Data Processing Activities</h3>
+                <div class="scwp-form-container--ccm">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div style="border: 1px solid #e0e0e0; padding: 15px; border-radius: 6px;">
+                            <label class="scwp-label--ccm">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Essential Cookies
+                            </label>
+                            <span class="scwp-label--ccm-description">Session management, security, basic functionality</span>
+                            <div style="margin-top: 8px;">
+                                <span style="background: #00a32a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">REQUIRED</span>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 1px solid #e0e0e0; padding: 15px; border-radius: 6px;">
+                            <label class="scwp-label--ccm">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Analytics Cookies
+                            </label>
+                            <span class="scwp-label--ccm-description">Google Analytics, visitor tracking, performance monitoring</span>
+                            <div style="margin-top: 8px;">
+                                <span style="background: #0073aa; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">OPTIONAL</span>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 1px solid #e0e0e0; padding: 15px; border-radius: 6px;">
+                            <label class="scwp-label--ccm">
+                                <input type="checkbox" style="margin-right: 10px;">
+                                Marketing Cookies
+                            </label>
+                            <span class="scwp-label--ccm-description">Facebook Pixel, AdWords, retargeting, personalization</span>
+                            <div style="margin-top: 8px;">
+                                <span style="background: #dba617; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">OPTIONAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="scwp-card__subtitle">Legal Documentation</h3>
+                <div class="scwp-form-container--ccm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label class="scwp-label--ccm">Privacy Policy URL</label>
+                            <input type="url" class="scwp-input--ccm" value="/privacy-policy" placeholder="https://yoursite.com/privacy">
+                        </div>
+                        <div>
+                            <label class="scwp-label--ccm">Terms of Service URL</label>
+                            <input type="url" class="scwp-input--ccm" value="/terms" placeholder="https://yoursite.com/terms">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="scwp-label--ccm">Data Controller Contact</label>
+                        <input type="email" class="scwp-input--ccm" value="privacy@yoursite.com" placeholder="contact@yoursite.com">
+                        <span class="scwp-label--ccm-description">Email for data protection inquiries and requests</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="scwp-btn scwp-btn--ccm-primary">💾 Update Legal Settings</button>
+                    <button class="scwp-btn scwp-btn--secondary">📄 Generate Privacy Policy</button>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="scwp-card scwp-card--primary">
+                <div class="scwp-card__header">
+                    <h3 class="scwp-card__title">💡 Style Comparison: SCWP vs CCM</h3>
+                </div>
+                <div class="scwp-card__content">
+                    <p>Esta card usa estilo <strong>SCWP</strong> (border colorido, hover effects). Compare com as cards CCM acima!</p>
+                    
+                    <h4>Form Elements Comparison:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                        <div>
+                            <h5><strong>SCWP Style:</strong></h5>
+                            <label class="scwp-label">Label SCWP</label>
+                            <input type="text" class="scwp-input" placeholder="SCWP input style" value="Standard SCWP">
+                        </div>
+                        <div>
+                            <h5><strong>CCM Style:</strong></h5>
+                            <label class="scwp-label--ccm">Label CCM</label>
+                            <input type="text" class="scwp-input--ccm" placeholder="CCM input style" value="Enhanced CCM">
+                            <span class="scwp-label--ccm-description">Notice the different focus states</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scwp-card__actions">
+                    <button class="scwp-btn scwp-btn--primary">SCWP Button</button>
+                    <button class="scwp-btn scwp-btn--ccm-primary">CCM Button</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('admin-menu');
+            menu.classList.toggle('mobile-open');
+        }
+
+        function selectPosition(element) {
+            // Remove selected class from all options
+            document.querySelectorAll('.scwp-position-selector__option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Update position text
+            const position = element.dataset.position;
+            const positionText = position.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+            document.getElementById('selected-position').textContent = positionText;
+        }
+
+        function showQuickPreview() {
+            // Remove existing preview
+            const existing = document.querySelector('.quick-preview-banner');
+            if (existing) existing.remove();
+
+            // Get selected position
+            const selectedOption = document.querySelector('.scwp-position-selector__option.selected');
+            const position = selectedOption ? selectedOption.dataset.position : 'bottom-left';
+            
+            // Get current message
+            const message = document.querySelector('textarea').value;
+
+            // Create banner
+            const banner = document.createElement('div');
+            banner.className = `scwp-cookie-banner scwp-cookie-banner--${position} quick-preview-banner`;
+            banner.innerHTML = `
+                <div class="scwp-cookie-banner__message">${message}</div>
+                <div class="scwp-cookie-banner__actions">
+                    <button class="scwp-btn scwp-btn--primary" onclick="this.parentElement.parentElement.remove()">Aceitar Todos</button>
+                    <button class="scwp-btn scwp-btn--secondary" onclick="this.parentElement.parentElement.remove()">Apenas Necessários</button>
+                </div>
+            `;
+            
+            document.body.appendChild(banner);
+            
+            // Auto remove after 6 seconds
+            setTimeout(() => {
+                if (banner && banner.parentNode) {
+                    banner.remove();
+                }
+            }, 6000);
+            
+            // Visual feedback
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ Preview Shown';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                consentsGiven: 2847,
+                consentsRejected: 423,
+                acceptanceRate: '87%',
+                configuration: {
+                    message: document.querySelector('textarea').value,
+                    position: document.querySelector('.scwp-position-selector__option.selected')?.dataset.position || 'bottom-left',
+                    acceptText: document.querySelector('input[value="Aceitar Todos"]')?.value || 'Aceitar Todos',
+                    rejectText: document.querySelector('input[value="Apenas Necessários"]')?.value || 'Apenas Necessários'
+                }
+            };
+            
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ccm-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            
+            // Visual feedback
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '📤 Exported!';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        function copyConfiguration() {
+            const config = {
+                message: document.querySelector('textarea').value,
+                position: document.querySelector('.scwp-position-selector__option.selected')?.dataset.position,
+                acceptText: document.querySelector('input[value="Aceitar Todos"]')?.value,
+                rejectText: document.querySelector('input[value="Apenas Necessários"]')?.value
+            };
+            
+            navigator.clipboard.writeText(JSON.stringify(config, null, 2)).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copied!';
+                btn.style.background = '#00a32a';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ This will permanently delete all consent data and reset settings. Are you sure?')) {
+                // Simulate data clearing
+                document.querySelectorAll('.scwp-card__count').forEach((counter, index) => {
+                    const values = ['0', '0', '0%', '0'];
+                    counter.textContent = values[index];
+                });
+                
+                // Show confirmation
+                const notice = document.createElement('div');
+                notice.className = 'notice notice-warning';
+                notice.innerHTML = '<p><strong>Warning!</strong> All consent data has been cleared.</p>';
+                document.querySelector('.main-content').insertBefore(notice, document.querySelector('.scwp-wrap--ccm'));
+                
+                setTimeout(() => notice.remove(), 5000);
+            }
+        }
+
+        // Auto-save functionality
+        let saveTimeout;
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('input, textarea, select')) {
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    // Show auto-save indicator
+                    const indicator = document.createElement('div');
+                    indicator.style.cssText = `
+                        position: fixed; 
+                        top: 40px; 
+                        right: 20px; 
+                        background: #00a32a; 
+                        color: white; 
+                        padding: 8px 16px; 
+                        border-radius: 4px; 
+                        font-size: 12px;
+                        z-index: 9999;
+                    `;
+                    indicator.textContent = '💾 Auto-saved';
+                    document.body.appendChild(indicator);
+                    
+                    setTimeout(() => indicator.remove(), 2000);
+                }, 1500);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🍪 CCM Admin Dashboard Loaded');
+            console.log('Using CCM variant components with SCWP design system');
+        });
+    </script>
+</body>
+</html>

@@ -35,3 +35,16 @@ coverage/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# MacOS files
+.AppleDouble
+.LSOverride
+.DS_Store
+.AppleDB
+.AppleDesktop
+# AI
+*.ase
+*.aseprite
+*.aseprite.zip
+.claude/
+*.claude/

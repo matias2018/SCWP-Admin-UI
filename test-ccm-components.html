@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CCM Components - SCWP Design System</title>
+    <link rel="stylesheet" href="css/scwp-admin-ui.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--scwp-wp-background);
+            font-family: var(--scwp-font-family);
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: var(--scwp-white);
+            padding: var(--scwp-space-6);
+            margin-bottom: var(--scwp-space-6);
+            border-radius: var(--scwp-border-radius);
+            box-shadow: var(--scwp-shadow);
+        }
+        .test-section h2 {
+            color: var(--scwp-primary);
+            margin-bottom: var(--scwp-space-4);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 style="text-align: center; color: var(--scwp-primary);">CCM Components Test Page</h1>
+        
+        <div class="test-section">
+            <h2>Position Selector Component</h2>
+            <div class="scwp-position-selector">
+                <label class="scwp-position-selector__label">Select Banner Position</label>
+                <div class="scwp-position-selector__screen">
+                    <div class="scwp-position-selector__option" data-position="top-left" onclick="selectPosition(this)"></div>
+                    <div class="scwp-position-selector__option selected" data-position="top-right" onclick="selectPosition(this)"></div>
+                    <div class="scwp-position-selector__option" data-position="bottom-left" onclick="selectPosition(this)"></div>
+                    <div class="scwp-position-selector__option" data-position="bottom-right" onclick="selectPosition(this)"></div>
+                </div>
+                <div class="scwp-position-selector__buttons">
+                    <button class="scwp-btn scwp-btn--primary" onclick="showCookieBannerTest()">Preview Banner</button>
+                    <button class="scwp-copy-default-btn">Copy Default Message</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Cookie Banner Preview</h2>
+            <p>Click "Preview Banner" above to see the cookie banner in the selected position.</p>
+            <button class="scwp-btn scwp-btn--danger scwp-btn--reset" onclick="hideCookieBanner()">Hide Banner</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Other Components Test</h2>
+            <div style="display: flex; gap: var(--scwp-space-4); flex-wrap: wrap; margin-bottom: var(--scwp-space-4);">
+                <button class="scwp-btn scwp-btn--primary">Primary Button</button>
+                <button class="scwp-btn scwp-btn--secondary">Secondary Button</button>
+                <button class="scwp-btn scwp-btn--success">Success Button</button>
+                <button class="scwp-btn scwp-btn--danger">Danger Button</button>
+            </div>
+            
+            <div class="scwp-card scwp-card--primary">
+                <div class="scwp-card__header">
+                    <h3 class="scwp-card__title">Test Card</h3>
+                </div>
+                <div class="scwp-card__content">
+                    <p>This card tests that existing SCWP components still work with the new CCM additions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectPosition(element) {
+            // Remove selected class from all options
+            document.querySelectorAll('.scwp-position-selector__option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            // Add selected class to clicked option
+            element.classList.add('selected');
+        }
+
+        function showCookieBannerTest() {
+            // Remove any existing banner
+            hideCookieBanner();
+            
+            // Get selected position
+            const selectedOption = document.querySelector('.scwp-position-selector__option.selected');
+            const position = selectedOption ? selectedOption.getAttribute('data-position') : 'top-right';
+            
+            // Create banner
+            const banner = document.createElement('div');
+            banner.className = `scwp-cookie-banner scwp-cookie-banner--${position}`;
+            banner.id = 'test-cookie-banner';
+            banner.innerHTML = `
+                <div class="scwp-cookie-banner__message">
+                    We use cookies to enhance your browsing experience and analyze our traffic. 
+                    By clicking "Accept All", you consent to our use of cookies.
+                </div>
+                <div class="scwp-cookie-banner__actions">
+                    <button class="scwp-btn scwp-btn--primary" onclick="hideCookieBanner()">Accept All</button>
+                    <button class="scwp-btn scwp-btn--secondary" onclick="hideCookieBanner()">Reject</button>
+                </div>
+            `;
+            
+            document.body.appendChild(banner);
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('test-cookie-banner');
+            if (banner) {
+                banner.remove();
+            }
+        }
+    </script>
+</body>
+</html>
