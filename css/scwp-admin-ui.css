@@ -1465,7 +1465,7 @@
     background-color: #f5f5f5;
 }
 
-/* Table Styles - Blue Corporate */
+/* Table Styles - Blue */
 .scwp-cookies-table--blue {
     border: 1px solid #2271b1;
     box-shadow: 0 2px 8px rgba(34, 113, 177, 0.1);
@@ -1498,7 +1498,7 @@
     background-color: #e8f3ff;
 }
 
-/* Table Styles - Green Nature */
+/* Table Styles - Green */
 .scwp-cookies-table--green {
     border: 1px solid var(--scwp-success);
     box-shadow: 0 2px 8px rgba(0, 163, 42, 0.1);
