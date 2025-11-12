@@ -49,15 +49,16 @@
     --scwp-font-family-mono: 'Courier New', monospace;
     
     /* Font Sizes */
-    --scwp-text-xs: 9px;
-    --scwp-text-sm: 10px;
-    --scwp-text-base: 11px;
-    --scwp-text-lg: 12px;
-    --scwp-text-xl: 14px;
-    --scwp-text-2xl: 16px;
-    --scwp-text-3xl: 22px;
-    --scwp-text-4xl: 30px;
+    --scwp-text-xs: 10px;
+    --scwp-text-sm: 11px;
+    --scwp-text-base: 14px;
+    --scwp-text-lg: 16px;
+    --scwp-text-xl: 20px;
+    --scwp-text-2xl: 24px;
+    --scwp-text-3xl: px;
+    --scwp-text-4xl: 32px;
     --scwp-text-5xl: 36px;
+    --scwp-text-6xl: 48px;
     
     /* Font Weights */
     --scwp-font-normal: 400;
